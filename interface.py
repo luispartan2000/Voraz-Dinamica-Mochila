@@ -172,16 +172,6 @@ def display_results(text_widget, algorithm_name, execution_time, total_value, it
 def clear_dashboard(text_widget):
     text_widget.delete(1.0, ctk.END)
 
-# Crear la ventana principal
-root = ctk.CTk()
-root.title("Simulador Mochila 0/1")
-root.geometry("1500x950")
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
-
-
-# Ejecutar la aplicación
 if __name__ == "__main__":
     app = App()
-    app.protocol("WM_DELETE_WINDOW", app.on_closing)
     app.mainloop()
