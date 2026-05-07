@@ -34,19 +34,19 @@ class App(ctk.CTk):
         self.tabview = ttk.Notebook(self)  # Crear el tabview aquí mismo
         self.tabview.grid(row=1, column=0, sticky="ew")  # Usar grid en lugar de pack
 
-        tab_greedy = ctk.CTkTabView(self.tabview, width=950)
-        tab_dynamic = ctk.CTkTabView(self.tabview, width=950)
-        tab_compare = ctk.CTkTabView(self.tabview, width=950)
+        tab_greedy = ctk.CTkTabview(self.tabview, width=950)
+        tab_dynamic = ctk.CTkTabview(self.tabview, width=950)
+        tab_compare = ctk.CTkTabview(self.tabview, width=950)
 
         # Agregar un Text widget para mostrar resultados
         self.result_text_greedy = ctk.CTkTextbox(tab_greedy, width=950, height=400)
-        self.result_text_greedy.pack(side="top", fill="both", expand=True)  # Usar pack en lugar de grid para este caso específico
+        self.result_text_greedy.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
 
         self.result_text_dynamic = ctk.CTkTextbox(tab_dynamic, width=950, height=400)
-        self.result_text_dynamic.pack(side="top", fill="both", expand=True)  # Usar pack en lugar de grid para este caso específico
+        self.result_text_dynamic.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
 
         self.result_text_compare = ctk.CTkTextbox(tab_compare, width=950, height=400)
-        self.result_text_compare.pack(side="top", fill="both", expand=True)  # Usar pack en lugar de grid para este caso específico
+        self.result_text_compare.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
 
     def run_greedy(self):
         self.cancelar_animaciones()
