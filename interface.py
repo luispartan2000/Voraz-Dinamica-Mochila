@@ -183,6 +183,8 @@ result_text_compare = ctk.CTkTextbox(tab_3, width=950, height=400)
 result_text_compare.pack(side="top", fill="both", expand=True)
 
 # Ejecutar la aplicación
+    def protocol(self, name, func):
+        super().protocol(name, func)
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
     def on_closing(self):
