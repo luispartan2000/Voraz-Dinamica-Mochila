@@ -55,6 +55,116 @@ class App(ctk.CTk):
         self.result_text_compare = ctk.CTkTextbox(tab_3, width=950, height=400)
         self.result_text_compare.pack(side="top", fill="both", expand=True)
 
+    def run_greedy(self):
+        self.cancelar_animaciones()
+        self.clear_dashboard(self.result_text_greedy)
+        self.tabview.set("Simulación Algoritmo Voraz")
+        capacidad, objetos = read_input()
+        if not objetos:
+            return
+        
+        start_time_real = time.perf_counter()
+        mochila, valor_total = mochila_voraz(capacidad, objetos)
+        end_time_real = time.perf_counter()
+        real_execution_time = end_time_real - start_time_real
+        
+        self.display_results(self.result_text_greedy, "Algoritmo Voraz", real_execution_time, valor_total, mochila)
+
+    def run_dynamic(self):
+        self.cancelar_animaciones()
+        self.clear_dashboard(self.result_text_dynamic)
+        self.tabview.set("Simulación Algoritmo Dinámico")
+        capacidad, objetos = read_input()
+        if not objetos:
+            return
+        
+        start_time_real = time.perf_counter()
+        mochila, valor_total = mochila_dinamica(capacidad, objetos)
+        end_time_real = time.perf_counter()
+        real_execution_time = end_time_real - start_time_real
+        
+        self.display_results(self.result_text_dynamic, "Programación Dinámica", real_execution_time, valor_total, mochila)
+
+    def compare_algorithms(self):
+        self.cancelar_animaciones()
+        self.clear_dashboard(self.result_text_compare)
+        self.tabview.set("Comparar Resultados")
+        capacidad, objetos = read_input()
+        if not objetos:
+            return
+        
+        # Ejecutar algoritmo voraz
+        start_time_voraz_real = time.perf_counter()
+        mochila_voraz_result, valor_total_voraz = mochila_voraz(capacidad, objetos)
+        end_time_voraz_real = time.perf_counter()
+        execution_time_voraz_real = end_time_voraz_real - start_time_voraz_real
+        
+        # Ejecutar algoritmo dinámico
+        start_time_dynamic_real = time.perf_counter()
+        mochila_dynamic_result, valor_total_dynamic = mochila_dinamica(capacidad, objetos)
+        end_time_dynamic_real = time.perf_counter()
+        execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
+        
+        display_results(self.result_text_compare, "Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
+        self.result_text_compare.insert(ctk.END, "\n")
+        display_results(self.result_text_compare, "Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
+        
+        # Visualización
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.bar(['Voraz', 'Dinámica'], [execution_time_voraz_real, execution_time_dynamic_real], color=['blue', 'green'])
+        ax.set_ylabel('Tiempo de ejecución (segundos)')
+        ax.set_title('Comparación de Tiempos de Ejecución')
+        
+        canvas = FigureCanvasTkAgg(fig, master=self.tabview.tab("Comparar Resultados"))
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
+
+    def on_closing(self):
+        self.cancelar_animaciones()
+        self.destroy()
+
+    def cancelar_animaciones(self):
+        for after_id in self.after_ids:
+            self.after_cancel(after_id)
+        self.after_ids.clear()
+
+    def clear_dashboard(self, text_widget):
+        text_widget.delete(1.0, ctk.END)
+
+    def display_results(self, text_widget, algorithm_name, execution_time, total_value, items):
+        text_widget.insert(ctk.END, f"{algorithm_name}\n")
+        text_widget.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+        text_widget.insert(ctk.END, f"Valor total: {total_value}\n")
+        text_widget.insert(ctk.END, f"Objetos en la mochila: {items}\n")
+
+    def read_input(self):
+        try:
+            with open('input.txt', 'r') as file:
+                lines = file.readlines()
+            
+            capacidad = int(lines[0].strip().split('=')[1])
+            n = int(lines[1].strip().split('=')[1])
+            
+            pesos = []
+            valores = []
+            for line in lines[2:]:
+                parts = line.strip().split()
+                if parts[0] == 'p':
+                    pesos.extend(map(int, parts[1:]))
+                elif parts[0] == 'b':
+                    valores.extend(map(int, parts[1:]))
+            
+            # Validar y manejar los objetos
+            objetos = []
+            for i in range(min(n, len(pesos))):
+                if pesos[i] > 0 and valores[i] >= 0:
+                    objetos.append((valores[i], pesos[i]))
+            
+            return capacidad, objetos
+        except Exception as e:
+            messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
+            return None, None
+
 def read_input():
     try:
         with open('input.txt', 'r') as file:
