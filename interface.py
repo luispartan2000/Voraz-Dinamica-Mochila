@@ -9,7 +9,8 @@ import threading
 from mochila_voraz import mochila_voraz
 from mochila_dinamica import mochila_dinamica
 
-ANIMATION_SPEED = 500  # Delay en milisegundos para la animación visual
+ANIMATION_SPEED = 700  # Delay en milisegundos para la animación visual
+DP_SPEED = 50  # Delay en milisegundos para la animación de programación dinámica
 
 def read_input():
     try:
