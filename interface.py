@@ -157,3 +157,7 @@ class App(ctk.CTk):
         except Exception as e:
             messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
             return None, None
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
