@@ -72,20 +72,21 @@ def read_input():
         text_widget.insert(ctk.END, f"Objetos en la mochila: {items}\n")
 
     def run_greedy(self):
-    clear_dashboard(result_text_greedy)
-    tabview.set("Simulación Algoritmo Voraz")
-    capacidad, objetos = read_input()
-    if not objetos:
-        return
-    
-    start_time_real = time.perf_counter()
-    mochila, valor_total = mochila_voraz(capacidad, objetos)
-    end_time_real = time.perf_counter()
-    real_execution_time = end_time_real - start_time_real
-    
-    display_results(result_text_greedy, "Algoritmo Voraz", real_execution_time, valor_total, mochila)
+        self.cancelar_animaciones()
+        self.clear_dashboard(self.result_text_greedy)
+        self.tabview.set("Simulación Algoritmo Voraz")
+        capacidad, objetos = self.read_input()
+        if not objetos:
+            return
+        
+        start_time_real = time.perf_counter()
+        mochila, valor_total = mochila_voraz(capacidad, objetos)
+        end_time_real = time.perf_counter()
+        real_execution_time = end_time_real - start_time_real
+        
+        self.display_results(self.result_text_greedy, "Algoritmo Voraz", real_execution_time, valor_total, mochila)
 
-def run_dynamic():
+    def run_dynamic(self):
     clear_dashboard(result_text_dynamic)
     tabview.set("Simulación Algoritmo Dinámico")
     capacidad, objetos = read_input()
