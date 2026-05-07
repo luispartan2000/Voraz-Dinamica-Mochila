@@ -87,20 +87,21 @@ def read_input():
         self.display_results(self.result_text_greedy, "Algoritmo Voraz", real_execution_time, valor_total, mochila)
 
     def run_dynamic(self):
-    clear_dashboard(result_text_dynamic)
-    tabview.set("Simulación Algoritmo Dinámico")
-    capacidad, objetos = read_input()
-    if not objetos:
-        return
-    
-    start_time_real = time.perf_counter()
-    mochila, valor_total = mochila_dinamica(capacidad, objetos)
-    end_time_real = time.perf_counter()
-    real_execution_time = end_time_real - start_time_real
-    
-    display_results(result_text_dynamic, "Programación Dinámica", real_execution_time, valor_total, mochila)
+        self.cancelar_animaciones()
+        self.clear_dashboard(self.result_text_dynamic)
+        self.tabview.set("Simulación Algoritmo Dinámico")
+        capacidad, objetos = self.read_input()
+        if not objetos:
+            return
+        
+        start_time_real = time.perf_counter()
+        mochila, valor_total = mochila_dinamica(capacidad, objetos)
+        end_time_real = time.perf_counter()
+        real_execution_time = end_time_real - start_time_real
+        
+        self.display_results(self.result_text_dynamic, "Programación Dinámica", real_execution_time, valor_total, mochila)
 
-def compare_algorithms():
+    def compare_algorithms(self):
     clear_dashboard(result_text_compare)
     tabview.set("Comparar Resultados")
     capacidad, objetos = read_input()
