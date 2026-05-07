@@ -27,6 +27,7 @@ def read_input():
     return capacidad, objetos
 
 def run_greedy():
+    from mochila_voraz import mochila_voraz
     capacidad, objetos = read_input()
     start_time = time.time()
     mochila, valor_total = mochila_voraz(capacidad, objetos)
@@ -40,6 +41,7 @@ def run_greedy():
     result_text.insert(tk.END, f"Objetos en la mochila: {mochila}\n")
 
 def run_dynamic():
+    from mochila_dinamica import mochila_dinamica
     capacidad, objetos = read_input()
     start_time = time.time()
     mochila, valor_total = mochila_dinamica(capacidad, objetos)
@@ -53,6 +55,8 @@ def run_dynamic():
     result_text.insert(tk.END, f"Objetos en la mochila: {mochila}\n")
 
 def compare_algorithms():
+    from mochila_voraz import mochila_voraz
+    from mochila_dinamica import mochila_dinamica
     capacidad, objetos = read_input()
     
     # Ejecutar algoritmo voraz
