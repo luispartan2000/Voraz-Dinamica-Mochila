@@ -16,18 +16,44 @@ class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.after_ids = []
-from tkinter import messagebox, ttk
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import time
-import threading
 
-# Importar las funciones de los algoritmos
-from mochila_voraz import mochila_voraz
-from mochila_dinamica import mochila_dinamica
+        # Importar las funciones de los algoritmos
+        from mochila_voraz import mochila_voraz
+        from mochila_dinamica import mochila_dinamica
 
-ANIMATION_SPEED = 700  # Delay en milisegundos para la animación visual
-DP_SPEED = 50  # Delay en milisegundos para la animación de programación dinámica
+        ANIMATION_SPEED = 700  # Delay en milisegundos para la animación visual
+        DP_SPEED = 50  # Delay en milisegundos para la animación de programación dinámica
+
+        # LEFT SIDEBAR (Botones)
+        frame_left = ctk.CTkFrame(self, width=200)
+        frame_left.pack(side="left", fill="y")
+
+        button_greedy = ctk.CTkButton(frame_left, text="Ejecutar Mochila Voraz", command=self.run_greedy)
+        button_greedy.pack(pady=10)
+
+        button_dynamic = ctk.CTkButton(frame_left, text="Ejecutar Mochila Dinámica", command=self.run_dynamic)
+        button_dynamic.pack(pady=10)
+
+        button_compare = ctk.CTkButton(frame_left, text="Comparar Resultados", command=self.compare_algorithms)
+        button_compare.pack(pady=10)
+
+        # CENTER MAIN AREA
+        tabview = ctk.CTkTabview(self, width=950)
+        tabview.pack(side="left", fill="both", expand=True)
+
+        tab_1 = tabview.add("Simulación Algoritmo Voraz")
+        tab_2 = tabview.add("Simulación Algoritmo Dinámico")
+        tab_3 = tabview.add("Comparar Resultados")
+
+        # Agregar un Text widget para mostrar resultados
+        self.result_text_greedy = ctk.CTkTextbox(tab_1, width=950, height=400)
+        self.result_text_greedy.pack(side="top", fill="both", expand=True)
+
+        self.result_text_dynamic = ctk.CTkTextbox(tab_2, width=950, height=400)
+        self.result_text_dynamic.pack(side="top", fill="both", expand=True)
+
+        self.result_text_compare = ctk.CTkTextbox(tab_3, width=950, height=400)
+        self.result_text_compare.pack(side="top", fill="both", expand=True)
 
 def read_input():
     try:
@@ -153,36 +179,6 @@ root.geometry("1500x950")
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-# LEFT SIDEBAR (Botones)
-frame_left = ctk.CTkFrame(root, width=200)
-frame_left.pack(side="left", fill="y")
-
-button_greedy = ctk.CTkButton(frame_left, text="Ejecutar Mochila Voraz", command=self.run_greedy)
-button_greedy.pack(pady=10)
-
-button_dynamic = ctk.CTkButton(frame_left, text="Ejecutar Mochila Dinámica", command=self.run_dynamic)
-button_dynamic.pack(pady=10)
-
-button_compare = ctk.CTkButton(frame_left, text="Comparar Resultados", command=self.compare_algorithms)
-button_compare.pack(pady=10)
-
-# CENTER MAIN AREA
-tabview = ctk.CTkTabview(root, width=950)
-tabview.pack(side="left", fill="both", expand=True)
-
-tab_1 = tabview.add("Simulación Algoritmo Voraz")
-tab_2 = tabview.add("Simulación Algoritmo Dinámico")
-tab_3 = tabview.add("Comparar Resultados")
-
-# Agregar un Text widget para mostrar resultados
-result_text_greedy = ctk.CTkTextbox(tab_1, width=950, height=400)
-result_text_greedy.pack(side="top", fill="both", expand=True)
-
-result_text_dynamic = ctk.CTkTextbox(tab_2, width=950, height=400)
-result_text_dynamic.pack(side="top", fill="both", expand=True)
-
-result_text_compare = ctk.CTkTextbox(tab_3, width=950, height=400)
-result_text_compare.pack(side="top", fill="both", expand=True)
 
 # Ejecutar la aplicación
 if __name__ == "__main__":
