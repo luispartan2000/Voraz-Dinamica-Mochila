@@ -19,7 +19,7 @@ class App(ctk.CTk):
 
         # LEFT SIDEBAR (Botones)
         frame_left = ctk.CTkFrame(self, width=200)
-        frame_left.grid(side="left", fill="y")  # Usar grid en lugar de pack
+        frame_left.grid(row=0, column=0, sticky="ns")  # Usar grid en lugar de pack
 
         button_greedy = ctk.CTkButton(frame_left, text="Ejecutar Mochila Voraz", command=self.run_greedy)
         button_greedy.grid(pady=10)  # Usar grid en lugar de pack
@@ -32,7 +32,7 @@ class App(ctk.CTk):
 
         # CENTER MAIN AREA
         self.tabview = ttk.Notebook(self)  # Crear el tabview aquí mismo
-        self.tabview.pack(side="left", fill="both", expand=True)
+        self.tabview.grid(row=1, column=0, sticky="ew")  # Usar grid en lugar de pack
 
         tab_greedy = ctk.CTkTabView(self.tabview, width=950)
         tab_dynamic = ctk.CTkTabView(self.tabview, width=950)
