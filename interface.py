@@ -101,6 +101,8 @@ def read_input():
         
         self.display_results(self.result_text_dynamic, "Programación Dinámica", real_execution_time, valor_total, mochila)
 
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+
     def compare_algorithms(self):
         self.cancelar_animaciones()
         self.clear_dashboard(result_text_compare)
