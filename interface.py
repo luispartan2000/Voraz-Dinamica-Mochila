@@ -102,37 +102,38 @@ def read_input():
         self.display_results(self.result_text_dynamic, "Programación Dinámica", real_execution_time, valor_total, mochila)
 
     def compare_algorithms(self):
-    clear_dashboard(result_text_compare)
-    tabview.set("Comparar Resultados")
-    capacidad, objetos = read_input()
-    if not objetos:
-        return
-    
-    # Ejecutar algoritmo voraz
-    start_time_voraz_real = time.perf_counter()
-    mochila_voraz_result, valor_total_voraz = mochila_voraz(capacidad, objetos)
-    end_time_voraz_real = time.perf_counter()
-    execution_time_voraz_real = end_time_voraz_real - start_time_voraz_real
-    
-    # Ejecutar algoritmo dinámico
-    start_time_dynamic_real = time.perf_counter()
-    mochila_dynamic_result, valor_total_dynamic = mochila_dinamica(capacidad, objetos)
-    end_time_dynamic_real = time.perf_counter()
-    execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
-    
-    display_results(result_text_compare, "Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
-    result_text_compare.insert(ctk.END, "\n")
-    display_results(result_text_compare, "Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
-    
-    # Visualización
-    fig, ax = plt.subplots(figsize=(8, 4))
-    ax.bar(['Voraz', 'Dinámica'], [execution_time_voraz_real, execution_time_dynamic_real], color=['blue', 'green'])
-    ax.set_ylabel('Tiempo de ejecución (segundos)')
-    ax.set_title('Comparación de Tiempos de Ejecución')
-    
-    canvas = FigureCanvasTkAgg(fig, master=tab_3)
-    canvas.draw()
-    canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
+        self.cancelar_animaciones()
+        self.clear_dashboard(result_text_compare)
+        tabview.set("Comparar Resultados")
+        capacidad, objetos = read_input()
+        if not objetos:
+            return
+        
+        # Ejecutar algoritmo voraz
+        start_time_voraz_real = time.perf_counter()
+        mochila_voraz_result, valor_total_voraz = mochila_voraz(capacidad, objetos)
+        end_time_voraz_real = time.perf_counter()
+        execution_time_voraz_real = end_time_voraz_real - start_time_voraz_real
+        
+        # Ejecutar algoritmo dinámico
+        start_time_dynamic_real = time.perf_counter()
+        mochila_dynamic_result, valor_total_dynamic = mochila_dinamica(capacidad, objetos)
+        end_time_dynamic_real = time.perf_counter()
+        execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
+        
+        display_results(result_text_compare, "Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
+        result_text_compare.insert(ctk.END, "\n")
+        display_results(result_text_compare, "Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
+        
+        # Visualización
+        fig, ax = plt.subplots(figsize=(8, 4))
+        ax.bar(['Voraz', 'Dinámica'], [execution_time_voraz_real, execution_time_dynamic_real], color=['blue', 'green'])
+        ax.set_ylabel('Tiempo de ejecución (segundos)')
+        ax.set_title('Comparación de Tiempos de Ejecución')
+        
+        canvas = FigureCanvasTkAgg(fig, master=tab_3)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
 
 def display_results(text_widget, algorithm_name, execution_time, total_value, items):
     text_widget.insert(ctk.END, f"{algorithm_name}\n")
