@@ -157,13 +157,13 @@ ctk.set_default_color_theme("blue")
 frame_left = ctk.CTkFrame(root, width=200)
 frame_left.pack(side="left", fill="y")
 
-button_greedy = ctk.CTkButton(frame_left, text="Ejecutar Mochila Voraz", command=run_greedy)
+button_greedy = ctk.CTkButton(frame_left, text="Ejecutar Mochila Voraz", command=self.run_greedy)
 button_greedy.pack(pady=10)
 
-button_dynamic = ctk.CTkButton(frame_left, text="Ejecutar Mochila Dinámica", command=run_dynamic)
+button_dynamic = ctk.CTkButton(frame_left, text="Ejecutar Mochila Dinámica", command=self.run_dynamic)
 button_dynamic.pack(pady=10)
 
-button_compare = ctk.CTkButton(frame_left, text="Comparar Resultados", command=compare_algorithms)
+button_compare = ctk.CTkButton(frame_left, text="Comparar Resultados", command=self.compare_algorithms)
 button_compare.pack(pady=10)
 
 # CENTER MAIN AREA
