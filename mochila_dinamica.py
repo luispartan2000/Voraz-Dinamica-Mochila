@@ -1,6 +1,6 @@
 import time
 
-import time
+DP_SPEED = 50
 
 def mochila_dinamica(capacidad, objetos, update_dp_callback=None, backtrack_callback=None):
     n = len(objetos)

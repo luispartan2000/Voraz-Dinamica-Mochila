@@ -1,6 +1,6 @@
 import time
 
-import time
+ANIMATION_SPEED = 700
 
 def mochila_voraz(capacidad, objetos, update_callback=None):
     # Ordenamos los objetos por densidad (valor/peso) en orden descendente
