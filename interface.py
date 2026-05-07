@@ -50,11 +50,11 @@ def run_greedy():
     end_time_real = time.perf_counter()
     real_execution_time = end_time_real - start_time_real
     
-    result_text.delete(1.0, ctk.END)
-    result_text.insert(ctk.END, f"Algoritmo Voraz\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
-    result_text.insert(ctk.END, f"Valor total: {valor_total}\n")
-    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
+    result_text_greedy.delete(1.0, ctk.END)
+    result_text_greedy.insert(ctk.END, f"Algoritmo Voraz\n")
+    result_text_greedy.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
+    result_text_greedy.insert(ctk.END, f"Valor total: {valor_total}\n")
+    result_text_greedy.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
 
 def run_dynamic():
     capacidad, objetos = read_input()
@@ -66,11 +66,11 @@ def run_dynamic():
     end_time_real = time.perf_counter()
     real_execution_time = end_time_real - start_time_real
     
-    result_text.delete(1.0, ctk.END)
-    result_text.insert(ctk.END, f"Programación Dinámica\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
-    result_text.insert(ctk.END, f"Valor total: {valor_total}\n")
-    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
+    result_text_dynamic.delete(1.0, ctk.END)
+    result_text_dynamic.insert(ctk.END, f"Programación Dinámica\n")
+    result_text_dynamic.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
+    result_text_dynamic.insert(ctk.END, f"Valor total: {valor_total}\n")
+    result_text_dynamic.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
 
 def compare_algorithms():
     capacidad, objetos = read_input()
@@ -89,18 +89,18 @@ def compare_algorithms():
     end_time_dynamic_real = time.perf_counter()
     execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
     
-    result_text.delete(1.0, ctk.END)
-    result_text.insert(ctk.END, f"Algoritmo Voraz\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_voraz_real:.6f} segundos\n")
-    result_text.insert(ctk.END, f"Valor total: {valor_total_voraz}\n")
-    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila_voraz_result}\n")
+    result_text_compare.delete(1.0, ctk.END)
+    result_text_compare.insert(ctk.END, f"Algoritmo Voraz\n")
+    result_text_compare.insert(ctk.END, f"Tiempo de ejecución: {execution_time_voraz_real:.6f} segundos\n")
+    result_text_compare.insert(ctk.END, f"Valor total: {valor_total_voraz}\n")
+    result_text_compare.insert(ctk.END, f"Objetos en la mochila: {mochila_voraz_result}\n")
     
-    result_text.insert(ctk.END, "\n")
+    result_text_compare.insert(ctk.END, "\n")
     
-    result_text.insert(ctk.END, f"Programación Dinámica\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_dynamic_real:.6f} segundos\n")
-    result_text.insert(ctk.END, f"Valor total: {valor_total_dynamic}\n")
-    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila_dynamic_result}\n")
+    result_text_compare.insert(ctk.END, f"Programación Dinámica\n")
+    result_text_compare.insert(ctk.END, f"Tiempo de ejecución: {execution_time_dynamic_real:.6f} segundos\n")
+    result_text_compare.insert(ctk.END, f"Valor total: {valor_total_dynamic}\n")
+    result_text_compare.insert(ctk.END, f"Objetos en la mochila: {mochila_dynamic_result}\n")
     
     # Visualización
     fig, ax = plt.subplots(figsize=(8, 4))
@@ -108,7 +108,7 @@ def compare_algorithms():
     ax.set_ylabel('Tiempo de ejecución (segundos)')
     ax.set_title('Comparación de Tiempos de Ejecución')
     
-    canvas = FigureCanvasTkAgg(fig, master=root)
+    canvas = FigureCanvasTkAgg(fig, master=tab_3)
     canvas.draw()
     canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=1)
 
@@ -129,10 +129,10 @@ title_label.pack(pady=10)
 subtitle_label = ctk.CTkLabel(sidebar_frame, text="Elija una opción", font=("Arial", 18))
 subtitle_label.pack(pady=5)
 
-button_greedy = ctk.CTkButton(sidebar_frame, text="Ejecutar Voraz", command=run_greedy)
+button_greedy = ctk.CTkButton(sidebar_frame, text="Ejecutar Voraz", command=lambda: (tabview.set("Simulación Voraz"), run_greedy()))
 button_greedy.pack(pady=10)
 
-button_dynamic = ctk.CTkButton(sidebar_frame, text="Ejecutar Dinámica", command=run_dynamic)
+button_dynamic = ctk.CTkButton(sidebar_frame, text="Ejecutar Dinámica", command=lambda: (tabview.set("Simulación Dinámica"), run_dynamic()))
 button_dynamic.pack(pady=10)
 
 button_compare = ctk.CTkButton(sidebar_frame, text="Comparar Ambos", command=compare_algorithms)
@@ -146,28 +146,15 @@ tab_1 = tabview.add("Simulación Voraz")
 tab_2 = tabview.add("Simulación Dinámica")
 tab_3 = tabview.add("Dashboard Comparativo")
 
-# RIGHT PANEL
-right_panel_frame = ctk.CTkFrame(root, width=350)
-right_panel_frame.pack(side="right", fill="y")
-
-time_label = ctk.CTkLabel(right_panel_frame, text="Tiempo actual: 0.0 segundos")
-time_label.pack(pady=10)
-
-value_label = ctk.CTkLabel(right_panel_frame, text="Valor total: 0")
-value_label.pack(pady=10)
-
-weight_label = ctk.CTkLabel(right_panel_frame, text="Peso acumulado: 0")
-weight_label.pack(pady=10)
-
-capacity_label = ctk.CTkLabel(right_panel_frame, text="Capacidad restante: 0")
-capacity_label.pack(pady=10)
-
-selected_objects_label = ctk.CTkLabel(right_panel_frame, text="Objetos seleccionados: []")
-selected_objects_label.pack(pady=10)
-
 # Agregar un Text widget para mostrar resultados
-result_text = ctk.CTkTextbox(tab_3, width=950, height=400)
-result_text.pack(side="top", fill="both", expand=True)
+result_text_greedy = ctk.CTkTextbox(tab_1, width=950, height=400)
+result_text_greedy.pack(side="top", fill="both", expand=True)
+
+result_text_dynamic = ctk.CTkTextbox(tab_2, width=950, height=400)
+result_text_dynamic.pack(side="top", fill="both", expand=True)
+
+result_text_compare = ctk.CTkTextbox(tab_3, width=950, height=400)
+result_text_compare.pack(side="top", fill="both", expand=True)
 
 # Ejecutar la aplicación
 root.mainloop()
