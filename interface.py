@@ -31,27 +31,12 @@ class App(ctk.CTk):
         button_compare.grid(pady=10)  # Usar grid en lugar de pack
 
         # CENTER MAIN AREA
-        self.tabview = ttk.Notebook(self)  # Crear el tabview aquí mismo
-        self.tabview.grid(row=1, column=0, sticky="ew")  # Usar grid en lugar de pack
-
-        tab_greedy = ctk.CTkTabview(self.tabview, width=950)
-        tab_dynamic = ctk.CTkTabview(self.tabview, width=950)
-        tab_compare = ctk.CTkTabview(self.tabview, width=950)
-
-        # Agregar un Text widget para mostrar resultados
-        self.result_text_greedy = ctk.CTkTextbox(tab_greedy, width=950, height=400)
-        self.result_text_greedy.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
-
-        self.result_text_dynamic = ctk.CTkTextbox(tab_dynamic, width=950, height=400)
-        self.result_text_dynamic.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
-
-        self.result_text_compare = ctk.CTkTextbox(tab_compare, width=950, height=400)
-        self.result_text_compare.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
+        self.result_text = ctk.CTkTextbox(self, width=950, height=400)
+        self.result_text.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
 
     def run_greedy(self):
         self.cancelar_animaciones()
-        self.clear_dashboard(self.result_text_greedy)
-        self.tabview.select(0)  # Seleccionar la pestaña "Simulación Algoritmo Voraz"
+        self.clear_dashboard()
         capacidad, objetos = self.read_input()
         if not objetos:
             return
@@ -61,12 +46,11 @@ class App(ctk.CTk):
         end_time_real = time.perf_counter()
         real_execution_time = end_time_real - start_time_real
         
-        self.display_results(self.result_text_greedy, "Algoritmo Voraz", real_execution_time, valor_total, mochila)
+        self.display_results("Algoritmo Voraz", real_execution_time, valor_total, mochila)
 
     def run_dynamic(self):
         self.cancelar_animaciones()
-        self.clear_dashboard(self.result_text_dynamic)
-        self.tabview.select(1)  # Seleccionar la pestaña "Simulación Algoritmo Dinámico"
+        self.clear_dashboard()
         capacidad, objetos = self.read_input()
         if not objetos:
             return
@@ -76,12 +60,11 @@ class App(ctk.CTk):
         end_time_real = time.perf_counter()
         real_execution_time = end_time_real - start_time_real
         
-        self.display_results(self.result_text_dynamic, "Programación Dinámica", real_execution_time, valor_total, mochila)
+        self.display_results("Programación Dinámica", real_execution_time, valor_total, mochila)
 
     def compare_algorithms(self):
         self.cancelar_animaciones()
-        self.clear_dashboard(self.result_text_compare)
-        self.tabview.select(2)  # Seleccionar la pestaña "Comparar Resultados"
+        self.clear_dashboard()
         capacidad, objetos = self.read_input()
         if not objetos:
             return
@@ -98,9 +81,9 @@ class App(ctk.CTk):
         end_time_dynamic_real = time.perf_counter()
         execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
         
-        self.display_results(self.result_text_compare, "Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
-        self.result_text_compare.insert(ctk.END, "\n")
-        self.display_results(self.result_text_compare, "Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
+        self.display_results("Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
+        self.result_text.insert(ctk.END, "\n")
+        self.display_results("Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
         
         # Visualización
         fig, ax = plt.subplots(figsize=(8, 4))
@@ -108,9 +91,9 @@ class App(ctk.CTk):
         ax.set_ylabel('Tiempo de ejecución (segundos)')
         ax.set_title('Comparación de Tiempos de Ejecución')
         
-        canvas = FigureCanvasTkAgg(fig, master=self.tabview)
+        canvas = FigureCanvasTkAgg(fig, master=self)
         canvas.draw()
-        canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
+        canvas.get_tk_widget().grid(row=1, column=1, sticky="nsew", padx=10, pady=10)
 
     def on_closing(self):
         self.cancelar_animaciones()
@@ -121,14 +104,14 @@ class App(ctk.CTk):
             self.after_cancel(after_id)
         self.after_ids.clear()
 
-    def clear_dashboard(self, text_widget):
-        text_widget.delete(1.0, ctk.END)
+    def clear_dashboard(self):
+        self.result_text.delete(1.0, ctk.END)
 
-    def display_results(self, text_widget, algorithm_name, execution_time, total_value, items):
-        text_widget.insert(ctk.END, f"{algorithm_name}\n")
-        text_widget.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
-        text_widget.insert(ctk.END, f"Valor total: {total_value}\n")
-        text_widget.insert(ctk.END, f"Objetos en la mochila: {items}\n")
+    def display_results(self, algorithm_name, execution_time, total_value, items):
+        self.result_text.insert(ctk.END, f"{algorithm_name}\n")
+        self.result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+        self.result_text.insert(ctk.END, f"Valor total: {total_value}\n")
+        self.result_text.insert(ctk.END, f"Objetos en la mochila: {items}\n")
 
     def read_input(self):
         try:
