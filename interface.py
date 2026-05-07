@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
+import threading
 
 def read_input():
     try:
@@ -33,7 +34,6 @@ def read_input():
         return None, None
 
 def run_greedy():
-    from mochila_voraz import mochila_voraz
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -50,7 +50,6 @@ def run_greedy():
     result_text.insert(tk.END, f"Objetos en la mochila: {mochila}\n")
 
 def run_dynamic():
-    from mochila_dinamica import mochila_dinamica
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -67,8 +66,6 @@ def run_dynamic():
     result_text.insert(tk.END, f"Objetos en la mochila: {mochila}\n")
 
 def compare_algorithms():
-    from mochila_voraz import mochila_voraz
-    from mochila_dinamica import mochila_dinamica
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -117,13 +114,13 @@ style = ttk.Style(root)
 style.theme_use('clam')
 
 # Botones
-button_greedy = ttk.Button(root, text="Run Greedy", command=run_greedy)
+button_greedy = ttk.Button(root, text="Ejecutar Voraz", command=run_greedy)
 button_greedy.pack(pady=5)
 
-button_dynamic = ttk.Button(root, text="Run Dynamic", command=run_dynamic)
+button_dynamic = ttk.Button(root, text="Ejecutar Dinámica", command=run_dynamic)
 button_dynamic.pack(pady=5)
 
-button_compare = ttk.Button(root, text="Compare Both", command=compare_algorithms)
+button_compare = ttk.Button(root, text="Comparar Ambos", command=compare_algorithms)
 button_compare.pack(pady=5)
 
 # Texto de resultados

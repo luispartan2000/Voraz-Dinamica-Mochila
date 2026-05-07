@@ -6,7 +6,7 @@ Este proyecto implementa dos soluciones para el problema de la mochila:
 
 ## Descripción del Proyecto
 
-El proyecto proporciona una interfaz gráfica de usuario (GUI) que permite ejecutar y comparar los resultados de dos algoritmos para resolver el problema de la mochila: el algoritmo voraz y la programación dinámica.
+El proyecto proporciona una interfaz gráfica de usuario (GUI) que permite ejecutar y comparar los resultados de dos algoritmos para resolver el problema de la mochila: el algoritmo voraz y la programación dinámica. La interfaz incluye animaciones paso a paso para visualizar cómo funcionan cada uno de los algoritmos.
 
 ## Algoritmos Implementados
 
@@ -36,8 +36,16 @@ El proyecto proporciona una interfaz gráfica de usuario (GUI) que permite ejecu
    ```
 4. El ejecutable se generará en la carpeta `dist`.
 
+## Animaciones
+
+- **Algoritmo Voraz**: La interfaz muestra una lista de objetos, los ordena por relación valor/peso y luego agrega objetos a la mochila uno por uno, indicando si cada objeto entra o no.
+- **Programación Dinámica**: Se visualiza una matriz (grid) que se llena paso a paso. Cada celda muestra las decisiones de tomar o no tomar un objeto, y finalmente se realiza una animación de backtracking para mostrar el camino seleccionado.
+
 ## Notas
 
 - Asegúrate de que el archivo `input.txt` esté correctamente configurado con los datos de entrada.
-- La interfaz gráfica proporciona botones para ejecutar cada algoritmo individualmente o comparar ambos, mostrando los resultados y un gráfico de comparación de tiempos de ejecución.
+- La interfaz gráfica proporciona botones para ejecutar cada algoritmo individualmente, comparar ambos y reiniciar la simulación, mostrando los resultados y animaciones paso a paso.
 
+## Robustez
+
+El proyecto valida el archivo `input.txt` de manera segura y maneja errores comunes como entradas malformadas, pesos o valores negativos, etc., para evitar que el programa crashee.
