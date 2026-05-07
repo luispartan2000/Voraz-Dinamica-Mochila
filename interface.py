@@ -1,37 +1,46 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
 
 def read_input():
-    with open('input.txt', 'r') as file:
-        lines = file.readlines()
-    
-    capacidad = int(lines[0].strip().split('=')[1])
-    n = int(lines[1].strip().split('=')[1])
-    
-    objetos = []
-    for line in lines[2:]:
-        parts = line.strip().split()
-        if parts[0] == 'p':
-            pesos = list(map(int, parts[1:]))
-        elif parts[0] == 'b':
-            valores = list(map(int, parts[1:]))
-    
-    # Validar y manejar los objetos
-    for i in range(min(n, len(pesos))):
-        if pesos[i] >= 0 and valores[i] >= 0:
-            objetos.append((valores[i], pesos[i]))
-    
-    return capacidad, objetos
+    try:
+        with open('input.txt', 'r') as file:
+            lines = file.readlines()
+        
+        capacidad = int(lines[0].strip().split('=')[1])
+        n = int(lines[1].strip().split('=')[1])
+        
+        pesos = []
+        valores = []
+        for line in lines[2:]:
+            parts = line.strip().split()
+            if parts[0] == 'p':
+                pesos.extend(map(int, parts[1:]))
+            elif parts[0] == 'b':
+                valores.extend(map(int, parts[1:]))
+        
+        # Validar y manejar los objetos
+        objetos = []
+        for i in range(min(n, len(pesos))):
+            if pesos[i] > 0 and valores[i] >= 0:
+                objetos.append((valores[i], pesos[i]))
+        
+        return capacidad, objetos
+    except Exception as e:
+        messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
+        return None, None
 
 def run_greedy():
     from mochila_voraz import mochila_voraz
     capacidad, objetos = read_input()
-    start_time = time.time()
+    if not objetos:
+        return
+    
+    start_time = time.perf_counter()
     mochila, valor_total = mochila_voraz(capacidad, objetos)
-    end_time = time.time()
+    end_time = time.perf_counter()
     execution_time = end_time - start_time
     
     result_text.delete(1.0, tk.END)
@@ -43,9 +52,12 @@ def run_greedy():
 def run_dynamic():
     from mochila_dinamica import mochila_dinamica
     capacidad, objetos = read_input()
-    start_time = time.time()
+    if not objetos:
+        return
+    
+    start_time = time.perf_counter()
     mochila, valor_total = mochila_dinamica(capacidad, objetos)
-    end_time = time.time()
+    end_time = time.perf_counter()
     execution_time = end_time - start_time
     
     result_text.delete(1.0, tk.END)
@@ -58,17 +70,19 @@ def compare_algorithms():
     from mochila_voraz import mochila_voraz
     from mochila_dinamica import mochila_dinamica
     capacidad, objetos = read_input()
+    if not objetos:
+        return
     
     # Ejecutar algoritmo voraz
-    start_time_voraz = time.time()
+    start_time_voraz = time.perf_counter()
     mochila_voraz_result, valor_total_voraz = mochila_voraz(capacidad, objetos)
-    end_time_voraz = time.time()
+    end_time_voraz = time.perf_counter()
     execution_time_voraz = end_time_voraz - start_time_voraz
     
     # Ejecutar algoritmo dinámico
-    start_time_dynamic = time.time()
+    start_time_dynamic = time.perf_counter()
     mochila_dynamic_result, valor_total_dynamic = mochila_dinamica(capacidad, objetos)
-    end_time_dynamic = time.time()
+    end_time_dynamic = time.perf_counter()
     execution_time_dynamic = end_time_dynamic - start_time_dynamic
     
     result_text.delete(1.0, tk.END)
