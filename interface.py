@@ -82,7 +82,7 @@ class App(ctk.CTk):
         self.cancelar_animaciones()
         self.clear_dashboard(self.result_text_compare)
         self.tabview.select(2)  # Seleccionar la pestaña "Comparar Resultados"
-        capacidad, objetos = read_input()
+        capacidad, objetos = self.read_input()
         if not objetos:
             return
         
@@ -157,7 +157,3 @@ class App(ctk.CTk):
         except Exception as e:
             messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
             return None, None
-
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
