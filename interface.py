@@ -42,7 +42,7 @@ def read_input():
 
 def run_greedy():
     clear_dashboard(result_text_greedy)
-    tabview.set("Simulación Voraz")
+    tabview.set("Simulación Algoritmo Voraz")
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -56,7 +56,7 @@ def run_greedy():
 
 def run_dynamic():
     clear_dashboard(result_text_dynamic)
-    tabview.set("Simulación Dinámica")
+    tabview.set("Simulación Algoritmo Dinámico")
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -70,7 +70,7 @@ def run_dynamic():
 
 def compare_algorithms():
     clear_dashboard(result_text_compare)
-    tabview.set("Dashboard Comparativo")
+    tabview.set("Comparar Resultados")
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -117,15 +117,26 @@ root.geometry("1500x950")
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-# LEFT SIDEBAR (Eliminada)
+# LEFT SIDEBAR (Botones)
+frame_left = ctk.CTkFrame(root, width=200)
+frame_left.pack(side="left", fill="y")
+
+button_greedy = ctk.CTkButton(frame_left, text="Ejecutar Mochila Voraz", command=run_greedy)
+button_greedy.pack(pady=10)
+
+button_dynamic = ctk.CTkButton(frame_left, text="Ejecutar Mochila Dinámica", command=run_dynamic)
+button_dynamic.pack(pady=10)
+
+button_compare = ctk.CTkButton(frame_left, text="Comparar Resultados", command=compare_algorithms)
+button_compare.pack(pady=10)
 
 # CENTER MAIN AREA
 tabview = ctk.CTkTabview(root, width=950)
 tabview.pack(side="left", fill="both", expand=True)
 
-tab_1 = tabview.add("Simulación Voraz")
-tab_2 = tabview.add("Simulación Dinámica")
-tab_3 = tabview.add("Dashboard Comparativo")
+tab_1 = tabview.add("Simulación Algoritmo Voraz")
+tab_2 = tabview.add("Simulación Algoritmo Dinámico")
+tab_3 = tabview.add("Comparar Resultados")
 
 # Agregar un Text widget para mostrar resultados
 result_text_greedy = ctk.CTkTextbox(tab_1, width=950, height=400)
