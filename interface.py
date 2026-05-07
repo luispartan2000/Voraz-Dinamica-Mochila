@@ -5,6 +5,10 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
 import threading
 
+# Importar las funciones de los algoritmos
+from mochila_voraz import mochila_voraz
+from mochila_dinamica import mochila_dinamica
+
 def read_input():
     try:
         with open('input.txt', 'r') as file:
