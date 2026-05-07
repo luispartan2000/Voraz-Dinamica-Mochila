@@ -9,6 +9,9 @@ import threading
 from mochila_voraz import mochila_voraz
 from mochila_dinamica import mochila_dinamica
 
+ANIMATION_SPEED = 0.8
+DP_SPEED = 0.08
+
 def read_input():
     try:
         with open('input.txt', 'r') as file:
@@ -42,14 +45,14 @@ def run_greedy():
     if not objetos:
         return
     
-    start_time = time.perf_counter()
+    start_time_real = time.perf_counter()
     mochila, valor_total = mochila_voraz(capacidad, objetos)
-    end_time = time.perf_counter()
-    execution_time = end_time - start_time
+    end_time_real = time.perf_counter()
+    real_execution_time = end_time_real - start_time_real
     
     result_text.delete(1.0, ctk.END)
     result_text.insert(ctk.END, f"Algoritmo Voraz\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
     result_text.insert(ctk.END, f"Valor total: {valor_total}\n")
     result_text.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
 
@@ -58,14 +61,14 @@ def run_dynamic():
     if not objetos:
         return
     
-    start_time = time.perf_counter()
+    start_time_real = time.perf_counter()
     mochila, valor_total = mochila_dinamica(capacidad, objetos)
-    end_time = time.perf_counter()
-    execution_time = end_time - start_time
+    end_time_real = time.perf_counter()
+    real_execution_time = end_time_real - start_time_real
     
     result_text.delete(1.0, ctk.END)
     result_text.insert(ctk.END, f"Programación Dinámica\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
     result_text.insert(ctk.END, f"Valor total: {valor_total}\n")
     result_text.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
 
@@ -75,33 +78,33 @@ def compare_algorithms():
         return
     
     # Ejecutar algoritmo voraz
-    start_time_voraz = time.perf_counter()
+    start_time_voraz_real = time.perf_counter()
     mochila_voraz_result, valor_total_voraz = mochila_voraz(capacidad, objetos)
-    end_time_voraz = time.perf_counter()
-    execution_time_voraz = end_time_voraz - start_time_voraz
+    end_time_voraz_real = time.perf_counter()
+    execution_time_voraz_real = end_time_voraz_real - start_time_voraz_real
     
     # Ejecutar algoritmo dinámico
-    start_time_dynamic = time.perf_counter()
+    start_time_dynamic_real = time.perf_counter()
     mochila_dynamic_result, valor_total_dynamic = mochila_dinamica(capacidad, objetos)
-    end_time_dynamic = time.perf_counter()
-    execution_time_dynamic = end_time_dynamic - start_time_dynamic
+    end_time_dynamic_real = time.perf_counter()
+    execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
     
     result_text.delete(1.0, ctk.END)
     result_text.insert(ctk.END, f"Algoritmo Voraz\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_voraz:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_voraz_real:.6f} segundos\n")
     result_text.insert(ctk.END, f"Valor total: {valor_total_voraz}\n")
     result_text.insert(ctk.END, f"Objetos en la mochila: {mochila_voraz_result}\n")
     
     result_text.insert(ctk.END, "\n")
     
     result_text.insert(ctk.END, f"Programación Dinámica\n")
-    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_dynamic:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_dynamic_real:.6f} segundos\n")
     result_text.insert(ctk.END, f"Valor total: {valor_total_dynamic}\n")
     result_text.insert(ctk.END, f"Objetos en la mochila: {mochila_dynamic_result}\n")
     
     # Visualización
     fig, ax = plt.subplots(figsize=(8, 4))
-    ax.bar(['Voraz', 'Dinámica'], [execution_time_voraz, execution_time_dynamic], color=['blue', 'green'])
+    ax.bar(['Voraz', 'Dinámica'], [execution_time_voraz_real, execution_time_dynamic_real], color=['blue', 'green'])
     ax.set_ylabel('Tiempo de ejecución (segundos)')
     ax.set_title('Comparación de Tiempos de Ejecución')
     
