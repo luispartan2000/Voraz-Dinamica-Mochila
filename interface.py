@@ -117,13 +117,13 @@ style = ttk.Style(root)
 style.theme_use('clam')
 
 # Botones
-button_greedy = ttk.Button(root, text="Ejecutar Algoritmo Voraz", command=run_greedy)
+button_greedy = ttk.Button(root, text="Run Greedy", command=run_greedy)
 button_greedy.pack(pady=5)
 
-button_dynamic = ttk.Button(root, text="Ejecutar Programación Dinámica", command=run_dynamic)
+button_dynamic = ttk.Button(root, text="Run Dynamic", command=run_dynamic)
 button_dynamic.pack(pady=5)
 
-button_compare = ttk.Button(root, text="Comparar Algoritmos", command=compare_algorithms)
+button_compare = ttk.Button(root, text="Compare Both", command=compare_algorithms)
 button_compare.pack(pady=5)
 
 # Texto de resultados
