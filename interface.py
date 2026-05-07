@@ -9,8 +9,7 @@ import threading
 from mochila_voraz import mochila_voraz
 from mochila_dinamica import mochila_dinamica
 
-ANIMATION_SPEED = 0.8
-DP_SPEED = 0.08
+ANIMATION_SPEED = 500  # Delay en milisegundos para la animación visual
 
 def read_input():
     try:
@@ -41,6 +40,8 @@ def read_input():
         return None, None
 
 def run_greedy():
+    clear_dashboard(result_text_greedy)
+    tabview.set("Simulación Voraz")
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -50,13 +51,11 @@ def run_greedy():
     end_time_real = time.perf_counter()
     real_execution_time = end_time_real - start_time_real
     
-    result_text_greedy.delete(1.0, ctk.END)
-    result_text_greedy.insert(ctk.END, f"Algoritmo Voraz\n")
-    result_text_greedy.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
-    result_text_greedy.insert(ctk.END, f"Valor total: {valor_total}\n")
-    result_text_greedy.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
+    display_results(result_text_greedy, "Algoritmo Voraz", real_execution_time, valor_total, mochila)
 
 def run_dynamic():
+    clear_dashboard(result_text_dynamic)
+    tabview.set("Simulación Dinámica")
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -66,13 +65,11 @@ def run_dynamic():
     end_time_real = time.perf_counter()
     real_execution_time = end_time_real - start_time_real
     
-    result_text_dynamic.delete(1.0, ctk.END)
-    result_text_dynamic.insert(ctk.END, f"Programación Dinámica\n")
-    result_text_dynamic.insert(ctk.END, f"Tiempo de ejecución: {real_execution_time:.6f} segundos\n")
-    result_text_dynamic.insert(ctk.END, f"Valor total: {valor_total}\n")
-    result_text_dynamic.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
+    display_results(result_text_dynamic, "Programación Dinámica", real_execution_time, valor_total, mochila)
 
 def compare_algorithms():
+    clear_dashboard(result_text_compare)
+    tabview.set("Dashboard Comparativo")
     capacidad, objetos = read_input()
     if not objetos:
         return
@@ -89,18 +86,9 @@ def compare_algorithms():
     end_time_dynamic_real = time.perf_counter()
     execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
     
-    result_text_compare.delete(1.0, ctk.END)
-    result_text_compare.insert(ctk.END, f"Algoritmo Voraz\n")
-    result_text_compare.insert(ctk.END, f"Tiempo de ejecución: {execution_time_voraz_real:.6f} segundos\n")
-    result_text_compare.insert(ctk.END, f"Valor total: {valor_total_voraz}\n")
-    result_text_compare.insert(ctk.END, f"Objetos en la mochila: {mochila_voraz_result}\n")
-    
+    display_results(result_text_compare, "Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
     result_text_compare.insert(ctk.END, "\n")
-    
-    result_text_compare.insert(ctk.END, f"Programación Dinámica\n")
-    result_text_compare.insert(ctk.END, f"Tiempo de ejecución: {execution_time_dynamic_real:.6f} segundos\n")
-    result_text_compare.insert(ctk.END, f"Valor total: {valor_total_dynamic}\n")
-    result_text_compare.insert(ctk.END, f"Objetos en la mochila: {mochila_dynamic_result}\n")
+    display_results(result_text_compare, "Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
     
     # Visualización
     fig, ax = plt.subplots(figsize=(8, 4))
@@ -110,7 +98,16 @@ def compare_algorithms():
     
     canvas = FigureCanvasTkAgg(fig, master=tab_3)
     canvas.draw()
-    canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=1)
+    canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
+
+def display_results(text_widget, algorithm_name, execution_time, total_value, items):
+    text_widget.insert(ctk.END, f"{algorithm_name}\n")
+    text_widget.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+    text_widget.insert(ctk.END, f"Valor total: {total_value}\n")
+    text_widget.insert(ctk.END, f"Objetos en la mochila: {items}\n")
+
+def clear_dashboard(text_widget):
+    text_widget.delete(1.0, ctk.END)
 
 # Crear la ventana principal
 root = ctk.CTk()
@@ -119,24 +116,7 @@ root.geometry("1500x950")
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-# LEFT SIDEBAR
-sidebar_frame = ctk.CTkFrame(root, width=200)
-sidebar_frame.pack(side="left", fill="y")
-
-title_label = ctk.CTkLabel(sidebar_frame, text="Simulador Mochila 0/1", font=("Arial", 24))
-title_label.pack(pady=10)
-
-subtitle_label = ctk.CTkLabel(sidebar_frame, text="Elija una opción", font=("Arial", 18))
-subtitle_label.pack(pady=5)
-
-button_greedy = ctk.CTkButton(sidebar_frame, text="Ejecutar Voraz", command=lambda: (tabview.set("Simulación Voraz"), run_greedy()))
-button_greedy.pack(pady=10)
-
-button_dynamic = ctk.CTkButton(sidebar_frame, text="Ejecutar Dinámica", command=lambda: (tabview.set("Simulación Dinámica"), run_dynamic()))
-button_dynamic.pack(pady=10)
-
-button_compare = ctk.CTkButton(sidebar_frame, text="Comparar Ambos", command=compare_algorithms)
-button_compare.pack(pady=10)
+# LEFT SIDEBAR (Eliminada)
 
 # CENTER MAIN AREA
 tabview = ctk.CTkTabview(root, width=950)
