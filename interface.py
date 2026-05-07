@@ -34,9 +34,9 @@ class App(ctk.CTk):
         self.tabview = ttk.Notebook(self)  # Crear el tabview aquí mismo
         self.tabview.grid(row=1, column=0, sticky="ew")  # Usar grid en lugar de pack
 
-        tab_greedy = ctk.CTkTabView(self.tabview, width=950)
-        tab_dynamic = ctk.CTkTabView(self.tabview, width=950)
-        tab_compare = ctk.CTkTabView(self.tabview, width=950)
+        tab_greedy = ctk.CTkTabview(self.tabview, width=950)
+        tab_dynamic = ctk.CTkTabview(self.tabview, width=950)
+        tab_compare = ctk.CTkTabview(self.tabview, width=950)
 
         # Agregar un Text widget para mostrar resultados
         self.result_text_greedy = ctk.CTkTextbox(tab_greedy, width=950, height=400)
