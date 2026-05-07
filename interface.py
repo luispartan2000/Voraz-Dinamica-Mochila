@@ -47,11 +47,11 @@ def run_greedy():
     end_time = time.perf_counter()
     execution_time = end_time - start_time
     
-    result_text.delete(1.0, tk.END)
-    result_text.insert(tk.END, f"Algoritmo Voraz\n")
-    result_text.insert(tk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
-    result_text.insert(tk.END, f"Valor total: {valor_total}\n")
-    result_text.insert(tk.END, f"Objetos en la mochila: {mochila}\n")
+    result_text.delete(1.0, ctk.END)
+    result_text.insert(ctk.END, f"Algoritmo Voraz\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Valor total: {valor_total}\n")
+    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
 
 def run_dynamic():
     capacidad, objetos = read_input()
@@ -63,11 +63,11 @@ def run_dynamic():
     end_time = time.perf_counter()
     execution_time = end_time - start_time
     
-    result_text.delete(1.0, tk.END)
-    result_text.insert(tk.END, f"Programación Dinámica\n")
-    result_text.insert(tk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
-    result_text.insert(tk.END, f"Valor total: {valor_total}\n")
-    result_text.insert(tk.END, f"Objetos en la mochila: {mochila}\n")
+    result_text.delete(1.0, ctk.END)
+    result_text.insert(ctk.END, f"Programación Dinámica\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Valor total: {valor_total}\n")
+    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila}\n")
 
 def compare_algorithms():
     capacidad, objetos = read_input()
@@ -86,18 +86,18 @@ def compare_algorithms():
     end_time_dynamic = time.perf_counter()
     execution_time_dynamic = end_time_dynamic - start_time_dynamic
     
-    result_text.delete(1.0, tk.END)
-    result_text.insert(tk.END, f"Algoritmo Voraz\n")
-    result_text.insert(tk.END, f"Tiempo de ejecución: {execution_time_voraz:.6f} segundos\n")
-    result_text.insert(tk.END, f"Valor total: {valor_total_voraz}\n")
-    result_text.insert(tk.END, f"Objetos en la mochila: {mochila_voraz_result}\n")
+    result_text.delete(1.0, ctk.END)
+    result_text.insert(ctk.END, f"Algoritmo Voraz\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_voraz:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Valor total: {valor_total_voraz}\n")
+    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila_voraz_result}\n")
     
-    result_text.insert(tk.END, "\n")
+    result_text.insert(ctk.END, "\n")
     
-    result_text.insert(tk.END, f"Programación Dinámica\n")
-    result_text.insert(tk.END, f"Tiempo de ejecución: {execution_time_dynamic:.6f} segundos\n")
-    result_text.insert(tk.END, f"Valor total: {valor_total_dynamic}\n")
-    result_text.insert(tk.END, f"Objetos en la mochila: {mochila_dynamic_result}\n")
+    result_text.insert(ctk.END, f"Programación Dinámica\n")
+    result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time_dynamic:.6f} segundos\n")
+    result_text.insert(ctk.END, f"Valor total: {valor_total_dynamic}\n")
+    result_text.insert(ctk.END, f"Objetos en la mochila: {mochila_dynamic_result}\n")
     
     # Visualización
     fig, ax = plt.subplots(figsize=(8, 4))
@@ -107,7 +107,7 @@ def compare_algorithms():
     
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
-    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+    canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=1)
 
 # Crear la ventana principal
 root = ctk.CTk()
@@ -161,6 +161,10 @@ capacity_label.pack(pady=10)
 
 selected_objects_label = ctk.CTkLabel(right_panel_frame, text="Objetos seleccionados: []")
 selected_objects_label.pack(pady=10)
+
+# Agregar un Text widget para mostrar resultados
+result_text = ctk.CTkTextbox(tab_3, width=950, height=400)
+result_text.pack(side="top", fill="both", expand=True)
 
 # Ejecutar la aplicación
 root.mainloop()
