@@ -1,5 +1,5 @@
-import tkinter as tk
-from tkinter import ttk, messagebox
+import customtkinter as ctk
+from tkinter import messagebox, ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
@@ -110,26 +110,57 @@ def compare_algorithms():
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
 # Crear la ventana principal
-root = tk.Tk()
-root.title("Problema de la Mochila")
+root = ctk.CTk()
+root.title("Simulador Mochila 0/1")
+root.geometry("1500x950")
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
 
-# Estilo minimalista
-style = ttk.Style(root)
-style.theme_use('clam')
+# LEFT SIDEBAR
+sidebar_frame = ctk.CTkFrame(root, width=200)
+sidebar_frame.pack(side="left", fill="y")
 
-# Botones
-button_greedy = ttk.Button(root, text="Ejecutar Voraz", command=run_greedy)
-button_greedy.pack(pady=5)
+title_label = ctk.CTkLabel(sidebar_frame, text="Simulador Mochila 0/1", font=("Arial", 24))
+title_label.pack(pady=10)
 
-button_dynamic = ttk.Button(root, text="Ejecutar Dinámica", command=run_dynamic)
-button_dynamic.pack(pady=5)
+subtitle_label = ctk.CTkLabel(sidebar_frame, text="Elija una opción", font=("Arial", 18))
+subtitle_label.pack(pady=5)
 
-button_compare = ttk.Button(root, text="Comparar Ambos", command=compare_algorithms)
-button_compare.pack(pady=5)
+button_greedy = ctk.CTkButton(sidebar_frame, text="Ejecutar Voraz", command=run_greedy)
+button_greedy.pack(pady=10)
 
-# Texto de resultados
-result_text = tk.Text(root, height=10, width=60)
-result_text.pack(pady=10)
+button_dynamic = ctk.CTkButton(sidebar_frame, text="Ejecutar Dinámica", command=run_dynamic)
+button_dynamic.pack(pady=10)
+
+button_compare = ctk.CTkButton(sidebar_frame, text="Comparar Ambos", command=compare_algorithms)
+button_compare.pack(pady=10)
+
+# CENTER MAIN AREA
+tabview = ctk.CTkTabview(root, width=950)
+tabview.pack(side="left", fill="both", expand=True)
+
+tab_1 = tabview.add("Simulación Voraz")
+tab_2 = tabview.add("Simulación Dinámica")
+tab_3 = tabview.add("Dashboard Comparativo")
+
+# RIGHT PANEL
+right_panel_frame = ctk.CTkFrame(root, width=350)
+right_panel_frame.pack(side="right", fill="y")
+
+time_label = ctk.CTkLabel(right_panel_frame, text="Tiempo actual: 0.0 segundos")
+time_label.pack(pady=10)
+
+value_label = ctk.CTkLabel(right_panel_frame, text="Valor total: 0")
+value_label.pack(pady=10)
+
+weight_label = ctk.CTkLabel(right_panel_frame, text="Peso acumulado: 0")
+weight_label.pack(pady=10)
+
+capacity_label = ctk.CTkLabel(right_panel_frame, text="Capacidad restante: 0")
+capacity_label.pack(pady=10)
+
+selected_objects_label = ctk.CTkLabel(right_panel_frame, text="Objetos seleccionados: []")
+selected_objects_label.pack(pady=10)
 
 # Ejecutar la aplicación
 root.mainloop()
