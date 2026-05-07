@@ -131,8 +131,8 @@ def read_input():
 
     def compare_algorithms(self):
         self.cancelar_animaciones()
-        self.clear_dashboard(result_text_compare)
-        tabview.set("Comparar Resultados")
+        self.clear_dashboard(self.result_text_compare)
+        self.tabview.set("Comparar Resultados")
         capacidad, objetos = read_input()
         if not objetos:
             return
@@ -149,9 +149,9 @@ def read_input():
         end_time_dynamic_real = time.perf_counter()
         execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
         
-        display_results(result_text_compare, "Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
-        result_text_compare.insert(ctk.END, "\n")
-        display_results(result_text_compare, "Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
+        display_results(self.result_text_compare, "Algoritmo Voraz", execution_time_voraz_real, valor_total_voraz, mochila_voraz_result)
+        self.result_text_compare.insert(ctk.END, "\n")
+        display_results(self.result_text_compare, "Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
         
         # Visualización
         fig, ax = plt.subplots(figsize=(8, 4))
@@ -159,7 +159,7 @@ def read_input():
         ax.set_ylabel('Tiempo de ejecución (segundos)')
         ax.set_title('Comparación de Tiempos de Ejecución')
         
-        canvas = FigureCanvasTkAgg(fig, master=tab_3)
+        canvas = FigureCanvasTkAgg(fig, master=self.tabview.tab("Comparar Resultados"))
         canvas.draw()
         canvas.get_tk_widget().pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
 
