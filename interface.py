@@ -12,6 +12,23 @@ from mochila_dinamica import mochila_dinamica
 ANIMATION_SPEED = 700  # Delay en milisegundos para la animación visual
 DP_SPEED = 50  # Delay en milisegundos para la animación de programación dinámica
 
+class App(ctk.CTk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.after_ids = []
+from tkinter import messagebox, ttk
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import time
+import threading
+
+# Importar las funciones de los algoritmos
+from mochila_voraz import mochila_voraz
+from mochila_dinamica import mochila_dinamica
+
+ANIMATION_SPEED = 700  # Delay en milisegundos para la animación visual
+DP_SPEED = 50  # Delay en milisegundos para la animación de programación dinámica
+
 def read_input():
     try:
         with open('input.txt', 'r') as file:
@@ -40,7 +57,21 @@ def read_input():
         messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
         return None, None
 
-def run_greedy():
+    def cancelar_animaciones(self):
+        for after_id in self.after_ids:
+            self.after_cancel(after_id)
+        self.after_ids.clear()
+
+    def clear_dashboard(self, text_widget):
+        text_widget.delete(1.0, ctk.END)
+
+    def display_results(self, text_widget, algorithm_name, execution_time, total_value, items):
+        text_widget.insert(ctk.END, f"{algorithm_name}\n")
+        text_widget.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
+        text_widget.insert(ctk.END, f"Valor total: {total_value}\n")
+        text_widget.insert(ctk.END, f"Objetos en la mochila: {items}\n")
+
+    def run_greedy(self):
     clear_dashboard(result_text_greedy)
     tabview.set("Simulación Algoritmo Voraz")
     capacidad, objetos = read_input()
@@ -149,4 +180,12 @@ result_text_compare = ctk.CTkTextbox(tab_3, width=950, height=400)
 result_text_compare.pack(side="top", fill="both", expand=True)
 
 # Ejecutar la aplicación
-root.mainloop()
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+
+    def on_closing(self):
+        self.cancelar_animaciones()
+        self.destroy()
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()

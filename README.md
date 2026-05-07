@@ -36,6 +36,18 @@ El proyecto proporciona una interfaz gráfica de usuario (GUI) que permite ejecu
    ```
 4. El ejecutable se generará en la carpeta `dist`.
 
+## Notas
+
+- Asegúrate de que el archivo `input.txt` esté correctamente configurado con los datos de entrada.
+- La interfaz gráfica proporciona botones para ejecutar cada algoritmo individualmente, comparar ambos y reiniciar la simulación, mostrando los resultados y animaciones paso a paso.
+
+## Robustez
+
+El proyecto valida el archivo `input.txt` de manera segura y maneja errores comunes como entradas malformadas, pesos o valores negativos, etc., para evitar que el programa crashee.
+- Se han añadido animaciones para visualizar la evaluación de objetos en el algoritmo voraz y la matriz de programación dinámica.
+- Se ha implementado un manejo seguro de cierres de ventana para cancelar callbacks pendientes.
+- Se han corregido errores de callbacks inválidos.
+
 ## Animaciones
 
 - **Algoritmo Voraz**: La interfaz muestra una lista de objetos, los ordena por relación valor/peso y luego agrega objetos a la mochila uno por uno, indicando si cada objeto entra o no.
