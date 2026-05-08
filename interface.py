@@ -94,10 +94,17 @@ class App(ctk.CTk):
         self.display_results("Programación Dinámica", execution_time_dynamic_real, valor_total_dynamic, mochila_dynamic_result)
         
         # Visualización
-        fig, ax = plt.subplots(figsize=(8, 4))
-        ax.bar(['Voraz', 'Dinámica'], [execution_time_voraz_real, execution_time_dynamic_real], color=['blue', 'green'])
-        ax.set_ylabel('Tiempo de ejecución (segundos)')
-        ax.set_title('Comparación de Tiempos de Ejecución')
+        fig, ax = plt.subplots(1, 2, figsize=(16, 4))
+        
+        # Chart A: Execution Time
+        ax[0].bar(['Voraz', 'Dinámica'], [execution_time_voraz_real, execution_time_dynamic_real], color=['blue', 'green'])
+        ax[0].set_ylabel('Tiempo de ejecución (segundos)')
+        ax[0].set_title('Comparación de Tiempos de Ejecución')
+        
+        # Chart B: Total Value
+        ax[1].bar(['Voraz', 'Dinámica'], [valor_total_voraz, valor_total_dynamic], color=['blue', 'green'])
+        ax[1].set_ylabel('Valor total')
+        ax[1].set_title('Comparación de Valores Totales')
         
         canvas = FigureCanvasTkAgg(fig, master=self)
         canvas.draw()
