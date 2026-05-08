@@ -18,21 +18,25 @@ class App(ctk.CTk):
         self.after_ids = []
 
         # LEFT SIDEBAR (Botones)
-        frame_left = ctk.CTkFrame(self, width=200)
-        frame_left.grid(row=0, column=0, sticky="ns")  # Usar grid en lugar de pack
+        self.sidebar_frame = ctk.CTkFrame(self, width=200)
+        self.sidebar_frame.grid(row=0, column=0, sticky="ns")  # Usar grid en lugar de pack
 
-        button_greedy = ctk.CTkButton(frame_left, text="Ejecutar Mochila Voraz", command=self.run_greedy)
+        button_greedy = ctk.CTkButton(self.sidebar_frame, text="Ejecutar Mochila Voraz", command=self.run_greedy)
         button_greedy.grid(pady=10)  # Usar grid en lugar de pack
 
-        button_dynamic = ctk.CTkButton(frame_left, text="Ejecutar Mochila Dinámica", command=self.run_dynamic)
+        button_dynamic = ctk.CTkButton(self.sidebar_frame, text="Ejecutar Mochila Dinámica", command=self.run_dynamic)
         button_dynamic.grid(pady=10)  # Usar grid en lugar de pack
 
-        button_compare = ctk.CTkButton(frame_left, text="Comparar Resultados", command=self.compare_algorithms)
+        button_compare = ctk.CTkButton(self.sidebar_frame, text="Comparar Resultados", command=self.compare_algorithms)
         button_compare.grid(pady=10)  # Usar grid en lugar de pack
 
         # CENTER MAIN FRAME
         self.main_frame = ctk.CTkFrame(self)
         self.main_frame.grid(row=0, column=1, sticky="nsew")
+
+        # Result Text Widget
+        self.result_text = ctk.CTkTextbox(self.main_frame, width=400, height=200)
+        self.result_text.pack(padx=10, pady=10)
 
         # Configure grid weights to allow resizing
         self.grid_rowconfigure(0, weight=1)
@@ -109,7 +113,8 @@ class App(ctk.CTk):
         self.after_ids.clear()
 
     def clear_dashboard(self):
-        self.result_text.delete(1.0, ctk.END)
+        if hasattr(self, 'result_text'):
+            self.result_text.delete(1.0, ctk.END)
 
     def display_results(self, algorithm_name, execution_time, total_value, items):
         self.result_text.insert(ctk.END, f"{algorithm_name}\n")
