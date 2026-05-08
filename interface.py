@@ -3,6 +3,7 @@ from tkinter import messagebox, ttk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
+import sys
 
 # Importar las funciones de los algoritmos
 from mochila_voraz import mochila_voraz
@@ -19,6 +20,7 @@ class App(ctk.CTk):
 
         # Configure the main window
         ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("blue")
         self.title("Problema de la Mochila")
         self.geometry("1200x800")
         self.configure(bg="#000000")
@@ -50,11 +52,11 @@ class App(ctk.CTk):
         self.button_run_greedy.grid(row=0, column=0, padx=10, pady=10)
 
         # Middle: Table animation area
-        self.scrollable_frame_greedy = ctk.CTkScrollableFrame(self.tab_voraz, fg_color="#1A1A1A")
+        self.scrollable_frame_greedy = ctk.CTkScrollableFrame(self.tab_voraz, fg_color="#000000")
         self.scrollable_frame_greedy.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
         # Bottom: Metrics (Time, Value)
-        self.result_text_greedy = ctk.CTkTextbox(self.tab_voraz, width=400, height=100, fg_color="#1A1A1A")
+        self.result_text_greedy = ctk.CTkTextbox(self.tab_voraz, width=400, height=100, fg_color="#000000")
         self.result_text_greedy.grid(row=2, column=0, padx=10, pady=10)
 
     def init_tab_dinamica(self):
@@ -63,11 +65,11 @@ class App(ctk.CTk):
         self.button_run_dynamic.grid(row=0, column=0, padx=10, pady=10)
 
         # Middle: DP Matrix animation area (scrollable)
-        self.scrollable_frame_dynamic = ctk.CTkScrollableFrame(self.tab_dinamica, fg_color="#1A1A1A")
+        self.scrollable_frame_dynamic = ctk.CTkScrollableFrame(self.tab_dinamica, fg_color="#000000")
         self.scrollable_frame_dynamic.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
         # Bottom: Metrics (Time, Value)
-        self.result_text_dynamic = ctk.CTkTextbox(self.tab_dinamica, width=400, height=100, fg_color="#1A1A1A")
+        self.result_text_dynamic = ctk.CTkTextbox(self.tab_dinamica, width=400, height=100, fg_color="#000000")
         self.result_text_dynamic.grid(row=2, column=0, padx=10, pady=10)
 
     def init_tab_comparacion(self):
@@ -122,7 +124,7 @@ class App(ctk.CTk):
         
         # Visualización
         plt.style.use('dark_background')
-        fig, ax = plt.subplots(1, 2, figsize=(16, 4), facecolor="#1A1A1A")
+        fig, ax = plt.subplots(1, 2, figsize=(16, 4), facecolor="#000000")
         
         # Chart A: Execution Time
         ax[0].bar(['Voraz', 'Dinámica'], [self.last_voraz_results['execution_time'], self.last_dinamica_results['execution_time']], color=['blue', 'green'])
@@ -144,10 +146,11 @@ class App(ctk.CTk):
         self.canvas_compare.get_tk_widget().grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
     def on_closing(self):
-        self.cancelar_animaciones()
+        self.cleanup()
         self.destroy()
+        sys.exit()
 
-    def cancelar_animaciones(self):
+    def cleanup(self):
         for after_id in self.after_ids:
             self.after_cancel(after_id)
         self.after_ids.clear()
@@ -194,19 +197,19 @@ class App(ctk.CTk):
         # Create headers
         header_labels = ["ID", "Valor", "Peso", "Ratio"]
         for i, label in enumerate(header_labels):
-            ctk.CTkLabel(self.scrollable_frame_greedy, text=label, fg_color="#1A1A1A").grid(row=0, column=i, padx=5, pady=5)
+            ctk.CTkLabel(self.scrollable_frame_greedy, text=label, fg_color="#000000").grid(row=0, column=i, padx=5, pady=5)
 
         # Create rows for each object
         self.rows_greedy = []
         for step in steps:
             row = {}
-            row["id"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(step["obj"]), fg_color="#1A1A1A")
+            row["id"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(step["obj"]), fg_color="#000000")
             row["id"].grid(row=len(steps) + 1, column=0)
-            row["value"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][0]), fg_color="#1A1A1A")
+            row["value"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][0]), fg_color="#000000")
             row["value"].grid(row=len(steps) + 1, column=1)
-            row["weight"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][1]), fg_color="#1A1A1A")
+            row["weight"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][1]), fg_color="#000000")
             row["weight"].grid(row=len(steps) + 1, column=2)
-            row["ratio"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=f"{objetos[step['obj']][0] / objetos[step['obj']][1]:.2f}", fg_color="#1A1A1A")
+            row["ratio"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=f"{objetos[step['obj']][0] / objetos[step['obj']][1]:.2f}", fg_color="#000000")
             row["ratio"].grid(row=len(steps) + 1, column=3)
             self.rows_greedy.append(row)
 
@@ -226,16 +229,16 @@ class App(ctk.CTk):
         # Create headers
         header_labels = [""] + list(range(len(matrix[0])))
         for i, label in enumerate(header_labels):
-            ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(label), fg_color="#1A1A1A").grid(row=0, column=i, padx=5, pady=5)
+            ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(label), fg_color="#000000").grid(row=0, column=i, padx=5, pady=5)
 
         # Create rows for each capacity
         self.rows_dynamic = []
         for i, row in enumerate(matrix):
             row_data = {}
-            row_data["id"] = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(i), fg_color="#1A1A1A")
+            row_data["id"] = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(i), fg_color="#000000")
             row_data["id"].grid(row=i + 1, column=0)
             for j, value in enumerate(row):
-                label = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(value), fg_color="#1A1A1A")
+                label = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(value), fg_color="#000000")
                 label.grid(row=i + 1, column=j + 1)
                 row_data[j] = label
             self.rows_dynamic.append(row_data)
@@ -281,4 +284,5 @@ class App(ctk.CTk):
 
 if __name__ == "__main__":
     app = App()
+    app.protocol("WM_DELETE_WINDOW", app.on_closing)
     app.mainloop()
