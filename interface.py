@@ -16,6 +16,7 @@ class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.after_ids = []
+        self.animation_ids = []
 
         # LEFT SIDEBAR (Botones)
         self.sidebar_frame = ctk.CTkFrame(self, width=200)
@@ -49,6 +50,7 @@ class App(ctk.CTk):
         if not objetos:
             return
         
+        # Start timer for pure logic
         start_time_real = time.perf_counter()
         mochila, valor_total = mochila_voraz(capacidad, objetos)
         end_time_real = time.perf_counter()
@@ -63,6 +65,7 @@ class App(ctk.CTk):
         if not objetos:
             return
         
+        # Start timer for pure logic
         start_time_real = time.perf_counter()
         mochila, valor_total = mochila_dinamica(capacidad, objetos)
         end_time_real = time.perf_counter()
@@ -122,6 +125,11 @@ class App(ctk.CTk):
     def clear_dashboard(self):
         if hasattr(self, 'result_text'):
             self.result_text.delete(1.0, ctk.END)
+        
+        # Cancel all pending animations
+        for animation_id in self.animation_ids:
+            self.after_cancel(animation_id)
+        self.animation_ids.clear()
 
     def display_results(self, algorithm_name, execution_time, total_value, items):
         self.result_text.insert(ctk.END, f"{algorithm_name}\n")
