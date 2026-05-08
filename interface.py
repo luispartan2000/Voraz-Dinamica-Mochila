@@ -59,7 +59,7 @@ class App(ctk.CTk):
         self.display_results("Algoritmo Voraz", real_execution_time, valor_total, mochila)
         
         # Draw step-by-step animation
-        self.draw_greedy_step_by_step(steps)
+        self.draw_greedy_step_by_step(steps, objetos)
 
     def run_dynamic(self):
         self.cancelar_animaciones()
@@ -143,7 +143,7 @@ class App(ctk.CTk):
         self.result_text.insert(ctk.END, f"Valor total: {total_value}\n")
         self.result_text.insert(ctk.END, f"Objetos en la mochila: {items}\n")
 
-    def draw_greedy_step_by_step(self, steps):
+    def draw_greedy_step_by_step(self, steps, objetos):
         # Create a scrollable frame for the table
         self.scrollable_frame = ctk.CTkScrollableFrame(self.main_frame)
         self.scrollable_frame.pack(padx=10, pady=10, fill="both", expand=True)
