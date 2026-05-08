@@ -2,7 +2,7 @@ import time
 
 DP_SPEED = 50
 
-def mochila_dinamica(capacidad, objetos, update_dp_callback=None, backtrack_callback=None):
+def mochila_dinamica(capacidad, objetos):
     n = len(objetos)
     dp = [[0 for _ in range(capacidad + 1)] for _ in range(n + 1)]
 
@@ -13,9 +13,6 @@ def mochila_dinamica(capacidad, objetos, update_dp_callback=None, backtrack_call
                 dp[i][w] = max(dp[i - 1][w], dp[i - 1][w - peso] + valor)
             else:
                 dp[i][w] = dp[i - 1][w]
-            if update_dp_callback:
-                update_dp_callback(i, w, dp[i][w])
-        time.sleep(DP_SPEED / 1000)  # Delay para la animación
 
     # Reconstruir la mochila
     mochila = []
@@ -25,8 +22,5 @@ def mochila_dinamica(capacidad, objetos, update_dp_callback=None, backtrack_call
             valor, peso = objetos[i - 1]
             mochila.append((valor, peso))
             w -= peso
-            if backtrack_callback:
-                backtrack_callback(i, w)
-        time.sleep(DP_SPEED / 1000)  # Delay para la animación
 
-    return mochila, dp[n][capacidad]
+    return mochila, dp[n][capacidad], dp

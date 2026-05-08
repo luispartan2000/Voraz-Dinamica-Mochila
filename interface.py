@@ -52,11 +52,14 @@ class App(ctk.CTk):
         
         # Start timer for pure logic
         start_time_real = time.perf_counter()
-        mochila, valor_total = mochila_voraz(capacidad, objetos)
+        mochila, valor_total, steps = mochila_voraz(capacidad, objetos)
         end_time_real = time.perf_counter()
         real_execution_time = end_time_real - start_time_real
         
         self.display_results("Algoritmo Voraz", real_execution_time, valor_total, mochila)
+        
+        # Draw step-by-step animation
+        self.draw_greedy_step_by_step(steps)
 
     def run_dynamic(self):
         self.cancelar_animaciones()
@@ -67,11 +70,14 @@ class App(ctk.CTk):
         
         # Start timer for pure logic
         start_time_real = time.perf_counter()
-        mochila, valor_total = mochila_dinamica(capacidad, objetos)
+        mochila, valor_total, dp_matrix = mochila_dinamica(capacidad, objetos)
         end_time_real = time.perf_counter()
         real_execution_time = end_time_real - start_time_real
         
         self.display_results("Programación Dinámica", real_execution_time, valor_total, mochila)
+        
+        # Draw DP matrix
+        self.draw_dp_matrix(dp_matrix)
 
     def compare_algorithms(self):
         self.cancelar_animaciones()
@@ -82,13 +88,13 @@ class App(ctk.CTk):
         
         # Ejecutar algoritmo voraz
         start_time_voraz_real = time.perf_counter()
-        mochila_voraz_result, valor_total_voraz = mochila_voraz(capacidad, objetos)
+        mochila_voraz_result, valor_total_voraz, steps_voraz = mochila_voraz(capacidad, objetos)
         end_time_voraz_real = time.perf_counter()
         execution_time_voraz_real = end_time_voraz_real - start_time_voraz_real
         
         # Ejecutar algoritmo dinámico
         start_time_dynamic_real = time.perf_counter()
-        mochila_dynamic_result, valor_total_dynamic = mochila_dinamica(capacidad, objetos)
+        mochila_dynamic_result, valor_total_dynamic, dp_matrix = mochila_dinamica(capacidad, objetos)
         end_time_dynamic_real = time.perf_counter()
         execution_time_dynamic_real = end_time_dynamic_real - start_time_dynamic_real
         
@@ -136,6 +142,75 @@ class App(ctk.CTk):
         self.result_text.insert(ctk.END, f"Tiempo de ejecución: {execution_time:.6f} segundos\n")
         self.result_text.insert(ctk.END, f"Valor total: {total_value}\n")
         self.result_text.insert(ctk.END, f"Objetos en la mochila: {items}\n")
+
+    def draw_greedy_step_by_step(self, steps):
+        # Create a scrollable frame for the table
+        self.scrollable_frame = ctk.CTkScrollableFrame(self.main_frame)
+        self.scrollable_frame.pack(padx=10, pady=10, fill="both", expand=True)
+
+        # Create headers
+        header_labels = ["ID", "Valor", "Peso", "Ratio"]
+        for i, label in enumerate(header_labels):
+            ctk.CTkLabel(self.scrollable_frame, text=label).grid(row=0, column=i, padx=5, pady=5)
+
+        # Create rows for each object
+        self.rows = []
+        for step in steps:
+            row = {}
+            row["id"] = ctk.CTkLabel(self.scrollable_frame, text=str(step["obj"]))
+            row["id"].grid(row=len(steps) + 1, column=0)
+            row["value"] = ctk.CTkLabel(self.scrollable_frame, text=str(objetos[step["obj"]][0]))
+            row["value"].grid(row=len(steps) + 1, column=1)
+            row["weight"] = ctk.CTkLabel(self.scrollable_frame, text=str(objetos[step["obj"]][1]))
+            row["weight"].grid(row=len(steps) + 1, column=2)
+            row["ratio"] = ctk.CTkLabel(self.scrollable_frame, text=f"{objetos[step['obj']][0] / objetos[step['obj']][1]:.2f}")
+            row["ratio"].grid(row=len(steps) + 1, column=3)
+            self.rows.append(row)
+
+        # Animate the steps
+        for i, step in enumerate(steps):
+            def highlight_row(step_index=i):
+                if step_index < len(self.rows):
+                    row = self.rows[step_index]
+                    color = "green" if step["fit"] else "red"
+                    row["id"].configure(fg_color=color)
+                    row["value"].configure(fg_color=color)
+                    row["weight"].configure(fg_color=color)
+                    row["ratio"].configure(fg_color=color)
+            self.after(ANIMATION_SPEED * i, highlight_row)
+
+    def draw_dp_matrix(self, matrix):
+        # Create a scrollable frame for the matrix
+        self.scrollable_frame = ctk.CTkScrollableFrame(self.main_frame)
+        self.scrollable_frame.pack(padx=10, pady=10, fill="both", expand=True)
+
+        # Create headers
+        header_labels = [""] + list(range(len(matrix[0])))
+        for i, label in enumerate(header_labels):
+            ctk.CTkLabel(self.scrollable_frame, text=str(label)).grid(row=0, column=i, padx=5, pady=5)
+
+        # Create rows for each capacity
+        self.rows = []
+        for i, row in enumerate(matrix):
+            row_data = {}
+            row_data["id"] = ctk.CTkLabel(self.scrollable_frame, text=str(i))
+            row_data["id"].grid(row=i + 1, column=0)
+            for j, value in enumerate(row):
+                label = ctk.CTkLabel(self.scrollable_frame, text=str(value))
+                label.grid(row=i + 1, column=j + 1)
+                row_data[j] = label
+            self.rows.append(row_data)
+
+        # Animate the backtracking path
+        def animate_backtracking(i=0, w=len(matrix[0]) - 1):
+            if i < len(matrix) and w >= 0:
+                if matrix[i][w] != matrix[i - 1][w]:
+                    self.rows[i][w].configure(fg_color="gold")
+                    self.after(DP_SPEED, animate_backtracking, i - 1, w - matrix[i-1][1])
+                else:
+                    self.after(DP_SPEED, animate_backtracking, i - 1, w)
+
+        animate_backtracking(len(matrix) - 1, len(matrix[0]) - 1)
 
     def read_input(self):
         try:
