@@ -30,9 +30,13 @@ class App(ctk.CTk):
         button_compare = ctk.CTkButton(frame_left, text="Comparar Resultados", command=self.compare_algorithms)
         button_compare.grid(pady=10)  # Usar grid en lugar de pack
 
-        # CENTER MAIN AREA
-        self.result_text = ctk.CTkTextbox(self, width=950, height=400)
-        self.result_text.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)  # Usar grid en lugar de pack para este caso específico
+        # CENTER MAIN FRAME
+        self.main_frame = ctk.CTkFrame(self)
+        self.main_frame.grid(row=0, column=1, sticky="nsew")
+
+        # Configure grid weights to allow resizing
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
 
     def run_greedy(self):
         self.cancelar_animaciones()
