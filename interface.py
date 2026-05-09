@@ -50,30 +50,48 @@ class App(ctk.CTk):
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
     def init_tab_voraz(self):
-        # Top: "Ejecutar" button + Input File loader
+        # Top (Controls): Centered button "Ejecutar"
         self.button_run_greedy = ctk.CTkButton(self.tab_voraz, text="Ejecutar", command=self.run_greedy)
         self.button_run_greedy.grid(row=0, column=0, padx=10, pady=10)
 
-        # Middle: Table animation area
+        # Center (Visuals): A frame that takes the most space (weight=1) to show the animation
         self.scrollable_frame_greedy = ctk.CTkScrollableFrame(self.tab_voraz, fg_color="#000000")
         self.scrollable_frame_greedy.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
-        # Bottom: Metrics (Time, Value)
-        self.result_text_greedy = ctk.CTkTextbox(self.tab_voraz, width=400, height=100, fg_color="#000000")
-        self.result_text_greedy.grid(row=2, column=0, padx=10, pady=10)
+        # Bottom (Stats): A horizontal frame with "Cards" showing Total Value, Weight, and Time in big, centered text
+        self.stats_frame_greedy = ctk.CTkFrame(self.tab_voraz, fg_color="#000000")
+        self.stats_frame_greedy.grid(row=2, column=0, sticky="nsew", padx=10, pady=10)
+
+        self.total_value_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Valor Total: 0", font=("Arial", 24), anchor="center")
+        self.total_value_label_greedy.grid(row=0, column=0, padx=10, pady=10)
+
+        self.total_weight_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Peso Total: 0", font=("Arial", 24), anchor="center")
+        self.total_weight_label_greedy.grid(row=0, column=1, padx=10, pady=10)
+
+        self.execution_time_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Tiempo: 0.00 s", font=("Arial", 24), anchor="center")
+        self.execution_time_label_greedy.grid(row=0, column=2, padx=10, pady=10)
 
     def init_tab_dinamica(self):
-        # Top: "Ejecutar" button + Input File loader
+        # Top (Controls): Centered button "Ejecutar"
         self.button_run_dynamic = ctk.CTkButton(self.tab_dinamica, text="Ejecutar", command=self.run_dynamic)
         self.button_run_dynamic.grid(row=0, column=0, padx=10, pady=10)
 
-        # Middle: DP Matrix animation area (scrollable)
+        # Middle (Visuals): DP Matrix animation area (scrollable)
         self.scrollable_frame_dynamic = ctk.CTkScrollableFrame(self.tab_dinamica, fg_color="#000000")
         self.scrollable_frame_dynamic.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
-        # Bottom: Metrics (Time, Value)
-        self.result_text_dynamic = ctk.CTkTextbox(self.tab_dinamica, width=400, height=100, fg_color="#000000")
-        self.result_text_dynamic.grid(row=2, column=0, padx=10, pady=10)
+        # Bottom (Stats): A horizontal frame with "Cards" showing Total Value, Weight, and Time in big, centered text
+        self.stats_frame_dynamic = ctk.CTkFrame(self.tab_dinamica, fg_color="#000000")
+        self.stats_frame_dynamic.grid(row=2, column=0, sticky="nsew", padx=10, pady=10)
+
+        self.total_value_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Valor Total: 0", font=("Arial", 24), anchor="center")
+        self.total_value_label_dynamic.grid(row=0, column=0, padx=10, pady=10)
+
+        self.total_weight_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Peso Total: 0", font=("Arial", 24), anchor="center")
+        self.total_weight_label_dynamic.grid(row=0, column=1, padx=10, pady=10)
+
+        self.execution_time_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Tiempo: 0.00 s", font=("Arial", 24), anchor="center")
+        self.execution_time_label_dynamic.grid(row=0, column=2, padx=10, pady=10)
 
     def init_tab_comparacion(self):
         # Add a CTkButton labeled "Generar Gráficas"
@@ -216,48 +234,61 @@ class App(ctk.CTk):
         # Create headers
         header_labels = ["ID", "Valor", "Peso", "Ratio"]
         for i, label in enumerate(header_labels):
-            ctk.CTkLabel(self.scrollable_frame_greedy, text=label, fg_color="#000000").grid(row=0, column=i, padx=5, pady=5)
+            ctk.CTkLabel(self.scrollable_frame_greedy, text=label, fg_color="#1f538d").grid(row=0, column=i, padx=5, pady=5)
 
         # Create rows for each object
         self.rows_greedy = []
-        for step in steps:
-            row = {}
-            row["id"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(step["obj"]), fg_color="#000000")
-            row["id"].grid(row=len(steps) + 1, column=0)
-            row["value"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][0]), fg_color="#000000")
-            row["value"].grid(row=len(steps) + 1, column=1)
-            row["weight"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][1]), fg_color="#000000")
-            row["weight"].grid(row=len(steps) + 1, column=2)
-            row["ratio"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=f"{objetos[step['obj']][0] / objetos[step['obj']][1]:.2f}", fg_color="#000000")
-            row["ratio"].grid(row=len(steps) + 1, column=3)
-            self.rows_greedy.append(row)
+        self.current_step_index = 0
 
-        # Animate the steps
-        for i, step in enumerate(steps):
-            def highlight_row(step_index=i):
-                if step_index < len(self.rows_greedy):
-                    row = self.rows_greedy[step_index]
-                    color = "green" if step["fit"] else "red"
-                    row["id"].configure(fg_color=color)
-                    row["value"].configure(fg_color=color)
-                    row["weight"].configure(fg_color=color)
-                    row["ratio"].configure(fg_color=color)
-            self.after(ANIMATION_SPEED * i, highlight_row)
+        def add_next_row():
+            if self.current_step_index < len(steps):
+                step = steps[self.current_step_index]
+                row = {}
+                row["id"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(step["obj"]), fg_color="#000000", anchor="center")
+                row["id"].grid(row=self.current_step_index + 1, column=0)
+                row["value"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][0]), fg_color="#000000", anchor="center")
+                row["value"].grid(row=self.current_step_index + 1, column=1)
+                row["weight"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][1]), fg_color="#000000", anchor="center")
+                row["weight"].grid(row=self.current_step_index + 1, column=2)
+                row["ratio"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=f"{objetos[step['obj']][0] / objetos[step['obj']][1]:.2f}", fg_color="#000000", anchor="center")
+                row["ratio"].grid(row=self.current_step_index + 1, column=3)
+                self.rows_greedy.append(row)
+
+                # Update stats
+                if step["fit"]:
+                    valor_total = float(self.total_value_label_greedy.cget("text").split(": ")[1])
+                    peso_total = float(self.total_weight_label_greedy.cget("text").split(": ")[1])
+                    valor_total += objetos[step["obj"]][0]
+                    peso_total += objetos[step["obj"]][1]
+                    self.total_value_label_greedy.configure(text=f"Valor Total: {valor_total:.2f}")
+                    self.total_weight_label_greedy.configure(text=f"Peso Total: {peso_total:.2f}")
+
+                # Highlight the row
+                color = "green" if step["fit"] else "red"
+                row["id"].configure(fg_color=color)
+                row["value"].configure(fg_color=color)
+                row["weight"].configure(fg_color=color)
+                row["ratio"].configure(fg_color=color)
+
+                self.current_step_index += 1
+                self.after(ANIMATION_SPEED, add_next_row)
+
+        add_next_row()
 
     def draw_dp_matrix(self, matrix):
         # Create headers
         header_labels = [""] + list(range(len(matrix[0])))
         for i, label in enumerate(header_labels):
-            ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(label), fg_color="#000000").grid(row=0, column=i, padx=5, pady=5)
+            ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(label), fg_color="#1f538d").grid(row=0, column=i, padx=5, pady=5)
 
         # Create rows for each capacity
         self.rows_dynamic = []
         for i, row in enumerate(matrix):
             row_data = {}
-            row_data["id"] = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(i), fg_color="#000000")
+            row_data["id"] = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(i), fg_color="#000000", anchor="center")
             row_data["id"].grid(row=i + 1, column=0)
             for j, value in enumerate(row):
-                label = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(value), fg_color="#000000")
+                label = ctk.CTkLabel(self.scrollable_frame_dynamic, text=str(value), fg_color="#000000", anchor="center")
                 label.grid(row=i + 1, column=j + 1)
                 row_data[j] = label
             self.rows_dynamic.append(row_data)
