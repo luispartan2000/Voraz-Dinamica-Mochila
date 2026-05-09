@@ -249,49 +249,68 @@ class App(ctk.CTk):
             }
 
     def draw_greedy_step_by_step(self, steps, objetos):
-        # Create headers
+        # Stage 1: Draw the table with all objects in original order
         header_labels = ["ID", "Valor", "Peso", "Ratio"]
         for i, label in enumerate(header_labels):
             ctk.CTkLabel(self.scrollable_frame_greedy, text=label, fg_color="#1f538d").grid(row=0, column=i, padx=5, pady=5)
 
-        # Create rows for each object
         self.rows_greedy = []
-        self.current_step_index = 0
+        for i, (valor, peso) in enumerate(objetos):
+            row = {}
+            row["id"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(i), fg_color="#000000", anchor="center")
+            row["id"].grid(row=i + 1, column=0)
+            row["value"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(valor), fg_color="#000000", anchor="center")
+            row["value"].grid(row=i + 1, column=1)
+            row["weight"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(peso), fg_color="#000000", anchor="center")
+            row["weight"].grid(row=i + 1, column=2)
+            row["ratio"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=f"{valor / peso:.2f}", fg_color="#000000", anchor="center")
+            row["ratio"].grid(row=i + 1, column=3)
+            self.rows_greedy.append(row)
 
-        def add_next_row():
-            if self.current_step_index < len(steps):
-                step = steps[self.current_step_index]
-                row = {}
-                row["id"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(step["obj"]), fg_color="#000000", anchor="center")
-                row["id"].grid(row=self.current_step_index + 1, column=0)
-                row["value"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][0]), fg_color="#000000", anchor="center")
-                row["value"].grid(row=self.current_step_index + 1, column=1)
-                row["weight"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(objetos[step["obj"]][1]), fg_color="#000000", anchor="center")
-                row["weight"].grid(row=self.current_step_index + 1, column=2)
-                row["ratio"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=f"{objetos[step['obj']][0] / objetos[step['obj']][1]:.2f}", fg_color="#000000", anchor="center")
-                row["ratio"].grid(row=self.current_step_index + 1, column=3)
-                self.rows_greedy.append(row)
+        # Stage 2: Re-sort the table by Ratio after 1.5 seconds
+        self.after(1500, lambda: self.resort_table_by_ratio(steps, objetos))
 
-                # Update stats
-                if step["fit"]:
-                    valor_total = float(self.total_value_label_greedy.cget("text").split(": ")[1])
-                    peso_total = float(self.total_weight_label_greedy.cget("text").split(": ")[1])
-                    valor_total += objetos[step["obj"]][0]
-                    peso_total += objetos[step["obj"]][1]
-                    self.total_value_label_greedy.configure(text=f"Valor Total: {valor_total:.2f}")
-                    self.total_weight_label_greedy.configure(text=f"Peso Total: {peso_total:.2f}")
+    def resort_table_by_ratio(self, steps, objetos):
+        # Clear existing rows
+        for row in self.rows_greedy:
+            for label in row.values():
+                label.grid_forget()
 
-                # Highlight the row
-                color = "green" if step["fit"] else "red"
-                row["id"].configure(fg_color=color)
-                row["value"].configure(fg_color=color)
-                row["weight"].configure(fg_color=color)
-                row["ratio"].configure(fg_color=color)
+        # Re-sort the table by Ratio
+        sorted_objetos = sorted(objetos, key=lambda x: x[0] / x[1], reverse=True)
+        self.rows_greedy = []
+        for i, (valor, peso) in enumerate(sorted_objetos):
+            row = {}
+            row["id"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(i), fg_color="#000000", anchor="center")
+            row["id"].grid(row=i + 1, column=0)
+            row["value"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(valor), fg_color="#000000", anchor="center")
+            row["value"].grid(row=i + 1, column=1)
+            row["weight"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=str(peso), fg_color="#000000", anchor="center")
+            row["weight"].grid(row=i + 1, column=2)
+            row["ratio"] = ctk.CTkLabel(self.scrollable_frame_greedy, text=f"{valor / peso:.2f}", fg_color="#000000", anchor="center")
+            row["ratio"].grid(row=i + 1, column=3)
+            self.rows_greedy.append(row)
 
-                self.current_step_index += 1
-                self.after(ANIMATION_SPEED, add_next_row)
+        # Stage 3: Color the rows based on selection after another 1.5 seconds
+        self.after(3000, lambda: self.color_rows_based_on_selection(steps))
 
-        add_next_row()
+    def color_rows_based_on_selection(self, steps):
+        valor_total = 0
+        peso_total = 0
+
+        for step in steps:
+            row = self.rows_greedy[step["obj"]]
+            color = "green" if step["fit"] else "red"
+            row["id"].configure(fg_color=color)
+            row["value"].configure(fg_color=color)
+            row["weight"].configure(fg_color=color)
+            row["ratio"].configure(fg_color=color)
+
+            if step["fit"]:
+                valor_total += objetos[step["obj"]][0]
+                peso_total += objetos[step["obj"]][1]
+                self.total_value_label_greedy.configure(text=f"Valor Total: {valor_total:.2f}")
+                self.total_weight_label_greedy.configure(text=f"Peso Total: {peso_total:.2f}")
 
     def draw_dp_matrix(self, matrix):
         # Create headers
