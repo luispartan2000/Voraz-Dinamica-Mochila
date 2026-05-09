@@ -1,0 +1,423 @@
+[33mcommit 84a24de918a50035a3c3606ba3595f4aed741827[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 22:44:52 2026 -0600
+
+    refactor: Mejora la estabilidad y el diseño de la interfaz en `interface.py`
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 0934d969a64502a509df08efc0d54a00addb9858[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 22:13:03 2026 -0600
+
+    fix: Corrige errores de callbacks inválidos al cerrar la ventana en `interface.py`.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit a037c75fbc87788bb31c9c9b31fcdefb1eabab1c[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 21:51:09 2026 -0600
+
+    refactor: Mejora el panel de comparación en interface.py para mostrar resultados y gráfica correctamente.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit ed79470134faa468fbede5b9f48b83fab4ca9c26[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 21:28:59 2026 -0600
+
+    feat(interface.py): Implementar animación de matriz DP y resumen final para simulación dinámica.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit e9f226d4d34063e173f0ed74377e3a4f6c2e504c[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 21:04:50 2026 -0600
+
+    feat(interface.py): Agregar cálculo y visualización del peso total en el resumen de resultados.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit ad471201f2b3bb2ded5e11007aa9b403a008ac18[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 20:54:38 2026 -0600
+
+    fix(interface.py): Corrige referencias a widgets obsoletos y asegura que clear_dashboard() funcione correctamente.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit eb99a395210dc5a1e7f51347d19fb1e990605c7a[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 18:10:45 2026 -0600
+
+    refactor: Mejora la interfaz de usuario con pestañas persistentes y mejoras en la visualización de simulaciones.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 6aa63ed69d20a84b280e077c35011963d253c1fd[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 18:04:16 2026 -0600
+
+    antes de mejorar dashboards
+
+[33mcommit 916d8674f21a87c1236de843222646f56b73349a[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 18:00:23 2026 -0600
+
+    fix: Corrige referencia a 'dp' en método highlight_path() de interface.py
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 8e1d467a28194aa1419ae0deb1e5e287b532ac80[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:35:20 2026 -0600
+
+    feat: Agregar simulación de matriz dinámica en dashboard dinámico.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 86544a7a94e32671ef1a5d6efb126933285e6849[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:19:41 2026 -0600
+
+    feat: Agrega animación de simulación para el algoritmo voraz en el dashboard greedy.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 6377b02e45ea055a5cbc8b7ba3d8738c641a7589[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:09:24 2026 -0600
+
+    feat: Agregar vistas de dashboard para algoritmos Voraz, Dinámico y Comparación.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 1dbe65447c816551b2dc65a4a9155b7b5c55c5de[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:27 2026 -0600
+
+    Version estable con botones y grafica funcionando
+
+[33mcommit 528b697d77f5be0a62befc2029279f4b8e03afa0[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:19 2026 -0600
+
+    fix: Define constantes de animación y asegura importación de `time` en archivos relevantes.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 003f8924c1fe13305acc34b84b743a7facd83538[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:18 2026 -0600
+
+    refactor: Simplificar interfaz y corregir errores de índice en pestañas.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 98d9a564921487145a9d21f852af6e5e2ce47c1c[m
+Author: dev_luis <luispartan117@outlook.es>
+Date:   Thu May 7 16:16:08 2026 -0600
+
+    fix: Corregir typo y usar grid en CTkTabview
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 5e6d722ae65936a2b396c6a463c0a67b017eb028[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:15 2026 -0600
+
+    fix: Cambiar pack a grid en widgets dentro de CTkTabView
+    
+    Co-authored-by: aider (ollama/deepseek-coder-v2) <aider@aider.chat>
+
+[33mcommit 3fa1a63c12337044b51635cd10182f471bf7702a[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:14 2026 -0600
+
+    feat: Cambié los nombres de las clases CTkTabView a CTkTabview en interface.py
+
+[33mcommit fc3345d4f1028fad24b7e2aa332b84fc2ce96241[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:13 2026 -0600
+
+    fix: Cambiar grid incorrecto a sintaxis correcta en interface.py
+    
+    Co-authored-by: aider (ollama/deepseek-coder-v2) <aider@aider.chat>
+
+[33mcommit 9324efac27cb81a5af656611b29b0a55285219cb[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:11 2026 -0600
+
+    fix: Cambiar todos los métodos pack a grid en la interfaz gráfica de usuario (GUI)
+    
+    Co-authored-by: aider (ollama/deepseek-coder-v2) <aider@aider.chat>
+
+[33mcommit 002bc7de65457bd97189f9144fa96bb6d659a882[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:10 2026 -0600
+
+    feat: Cambia "ctk.CTkTabView" a "ctk.CTkTabview" en interface.py
+
+[33mcommit 3f0d6097c77f7c018af62cb237bcd1aeb7f82c4b[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:08 2026 -0600
+
+    fix: asegurar que interface.py lance la GUI correctamente al iniciarse
+    
+    Co-authored-by: aider (ollama/deepseek-coder-v2) <aider@aider.chat>
+
+[33mcommit f7359858ff1a319bc2c25e3b0f26678256bd792e[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:07 2026 -0600
+
+    fix: corregir llamada a read_input en compare_algorithms
+    
+    Co-authored-by: aider (ollama/deepseek-coder-v2) <aider@aider.chat>
+
+[33mcommit ab72d68dd5b52cc2fd44830b2618f9a65d03c020[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:05 2026 -0600
+
+    fix: interface.py
+    
+    Co-authored-by: aider (ollama/deepseek-coder-v2) <aider@aider.chat>
+
+[33mcommit 10e1c5a5866cf74c11f77480904836d378328e87[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:04 2026 -0600
+
+    fix: Mueve métodos a la clase App y corrige errores de atributo
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 0d53f52ca489df90ce53f3e0dce2767d31417096[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:02 2026 -0600
+
+    fix: corrige nombres indefinidos en compare_algorithms
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit d18cf3e1495afe8af003ac41427dfb9b8a303d2c[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:05:01 2026 -0600
+
+    fix: corregir bloque de código en interface.py
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit e64800838d5c37ac8db80ec3eadd30fc3ce3e475[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:59 2026 -0600
+
+    fix: Mover creación de widgets dentro del método `__init__` de la clase `App`.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 11f491285274303e610820a8e630be6d1a9f4195[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:57 2026 -0600
+
+    fix: corrige nombres no definidos en botones de interface.py
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 42483cdd63fc44a39b6b4d3b2d3fd68ba43238ca[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:55 2026 -0600
+
+    fix: corregir error de indentación en método protocol
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit f69c5ae625573a26a0302a13ef28fe89e432a1e6[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:52 2026 -0600
+
+    fix: agrega protocolo WM_DELETE_WINDOW en interface.py
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 0697ac1a265b6eab1b8407024b38a88cb82a1194[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:50 2026 -0600
+
+    fix: corregir error de indentación en método __init__ de interface.py
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit f937f43c45248d2f903b7a5518152fc522fc9b0c[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:48 2026 -0600
+
+    fix: corregir error de indentación en compare_algorithms
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 1b65b4131d0ba2c6ffc63c044785a1465ad2b08a[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:46 2026 -0600
+
+    fix: Corrige error de indentación en función run_dynamic
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 53e84ed7f46b1590f356a6175bd9c963d007db3b[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:44 2026 -0600
+
+    fix: ajustar método run_greedy y run_dynamic en interface.py
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 44ea3e800f0d289b5275fd1aaec357ea4e42ca9a[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:42 2026 -0600
+
+    fix: corregir errores de callbacks y mejorar simulaciones
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:32b) <aider@aider.chat>
+
+[33mcommit 38c7fe337fd4b0530ecf27374718c7e9c7fe2e00[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:40 2026 -0600
+
+    feat: Implementación de la interfaz y simulaciones para el problema de la mochila.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 3b2fd5606521c536a34858ea639f99ce0deca1a2[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:37 2026 -0600
+
+    fix: Corrección y mejora del proyecto, incluyendo ajustes en `interface.py`, `mochila_voraz.py`, `mochila_dinamica.py` y actualización de `README.md`.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit baf9c2725c427ef996ac1f38416f8c1b87be884e[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:36 2026 -0600
+
+    refactor: Mejorar interfaz gráfica del Simulador de Mochila para mejorar responsividad y sincronizar animaciones.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 1e7d8f699a7b47ef8d6ed67165d0bdd30ba691d4[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:33 2026 -0600
+
+    refactor: Mejorar interfaz gráfica del Simulador de Mochila para mejorar responsividad y sincronizar animaciones.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit ba85929f614183e757c50be3d8a78b8a6174786e[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:29 2026 -0600
+
+    Respaldo antes del refactor de UI y tiempos
+
+[33mcommit acc39c80adc60f678bbee20b30a4a41f9415f3e2[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:26 2026 -0600
+
+    feat: Implementar animaciones paso a paso para algoritmos voraz y dinámica en la interfaz.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit f5c328d1b32f2479d271e8bd39bfbe509c167908[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:25 2026 -0600
+
+    fix: Corrige errores de nombres no definidos en `interface.py` y actualiza referencias a CustomTkinter.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 848e0c5907125e71b3697e34c0fcf18df3e33d8e[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:23 2026 -0600
+
+    refactor: Reescribir completamente `interface.py` utilizando CustomTkinter para una interfaz moderna y actualizada.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit dfe2fe8b622dd6f749162cdaafcde12a8ec598a8[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:20 2026 -0600
+
+    fix: Importar funciones `mochila_voraz` y `mochila_dinamica` en `interface.py`
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 485b002102e97934eedf237d430f3824a0b2d425[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:18 2026 -0600
+
+    refactor: Rediseño y mejora del proyecto para incluir animaciones paso a paso y mejor interfaz gráfica.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 97056adffb00b2d724830aed110a5a8614067ea6[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:16 2026 -0600
+
+    docs: Actualizar README.md y input.txt con instrucciones detalladas y corregir texto en interface.py
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 448b648bdb0b726a78d90041d2347c32602f9afb[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:13 2026 -0600
+
+    feat: agregar datos de entrada al archivo input.txt
+
+[33mcommit 578e9fd9134c4aff80e174904e49f8dc315cf297[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:10 2026 -0600
+
+    refactor: Mejora y finaliza el proyecto para entrega, incluyendo mejoras en la interfaz, corrección del gráfico, optimización de rendimiento y estabilidad.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 4364b5b73aa5cd124554fb7372c86570e9dffe9d[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:04:06 2026 -0600
+
+    fix: Corrige errores en `interface.py` y `python interface.py`, añadiendo importaciones necesarias y corrigiendo sintaxis.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit de6bc34f2f3186845d41dc7018193cd45fd5c22a[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:03:59 2026 -0600
+
+    feat: Implementa interfaz gráfica con tkinter para comparar algoritmos de mochila
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 80b27d28668f8b1071b84f2818291a6999192d8e[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:03:47 2026 -0600
+
+    fix: Actualiza el archivo `mochila_voraz.py` con los resultados del algoritmo voraz.
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit 47327c0ce206e86fea62980cca6cc193cc9b7bff[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:03:08 2026 -0600
+
+    feat: Implementar algoritmos voraz y dinámico para el problema de la mochila
+    
+    Co-authored-by: aider (ollama/qwen2.5-coder:14b) <aider@aider.chat>
+
+[33mcommit dc1d517dfa874d684146ab7114c51b88a52f3814[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:02:55 2026 -0600
+
+    feat: agregar implementaciones de algoritmos de mochila dinámica y voraz en Python
+
+[33mcommit 7e0cdb64aec35701419929cb666e5cf22a8ade48[m
+Author: luispartan2000 <luispartan117@outlook.es>
+Date:   Thu May 7 17:02:23 2026 -0600
+
+    feat(mochila_voraz.py): Leer entrada desde input.txt para resolver el problema de la mochila utilizando un algoritm
