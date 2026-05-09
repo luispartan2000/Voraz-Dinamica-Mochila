@@ -149,31 +149,47 @@ class App(ctk.CTk):
         self.canvas_compare.get_tk_widget().grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
     def on_closing(self):
-        self.cleanup()
+        # 1. Cancelar todas las animaciones pendientes
+        self.cancelar_animaciones()
+
+        # 2. Detener cualquier actualización de GUI pendiente
+        self.update_idletasks()
+
+        # 3. Cerrar todos los gráficos de Matplotlib
+        plt.close('all')
+
+        # 4. Destruir la ventana de forma segura
         self.destroy()
-        sys.exit()
 
-    def cleanup(self):
-        for after_id in self.after_ids:
-            self.after_cancel(after_id)
-        self.after_ids.clear()
+        # 5. Matar el proceso de Python por completo
+        sys.exit(0)
 
-        for animation_id in self.animation_ids:
-            self.after_cancel(animation_id)
-        self.animation_ids.clear()
+    def cancelar_animaciones(self):
+        for after_id in self.animation_ids:
+            try:
+                self.after_cancel(after_id)
+            except TclError:
+                pass
+        self.animation_ids = []
 
     def clear_dashboard(self, tab_name):
         if tab_name == "Voraz":
             self.result_text_greedy.delete(1.0, ctk.END)
             # Cancel all pending animations
             for animation_id in self.animation_ids:
-                self.after_cancel(animation_id)
+                try:
+                    self.after_cancel(animation_id)
+                except TclError:
+                    pass
             self.animation_ids.clear()
         elif tab_name == "Dinámica":
             self.result_text_dynamic.delete(1.0, ctk.END)
             # Cancel all pending animations
             for animation_id in self.animation_ids:
-                self.after_cancel(animation_id)
+                try:
+                    self.after_cancel(animation_id)
+                except TclError:
+                    pass
             self.animation_ids.clear()
 
     def display_results(self, algorithm_name, execution_time, total_value, items, tab_name):
@@ -284,11 +300,6 @@ class App(ctk.CTk):
         except Exception as e:
             messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
             return None, None
-
-    def cancelar_animaciones(self):
-        for after_id in self.animation_ids:
-            self.after_cancel(after_id)
-        self.animation_ids = []
 
 if __name__ == "__main__":
     app = App()
