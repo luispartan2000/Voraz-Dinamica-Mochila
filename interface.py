@@ -46,6 +46,9 @@ class App(ctk.CTk):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
+        # Add exit protocol
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+
     def init_tab_voraz(self):
         # Top: "Ejecutar" button + Input File loader
         self.button_run_greedy = ctk.CTkButton(self.tab_voraz, text="Ejecutar", command=self.run_greedy)
@@ -282,7 +285,11 @@ class App(ctk.CTk):
             messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
             return None, None
 
+    def cancelar_animaciones(self):
+        for after_id in self.animation_ids:
+            self.after_cancel(after_id)
+        self.animation_ids = []
+
 if __name__ == "__main__":
     app = App()
-    app.protocol("WM_DELETE_WINDOW", app.on_closing)
     app.mainloop()
