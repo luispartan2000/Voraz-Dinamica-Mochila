@@ -9,7 +9,7 @@ import sys
 from mochila_voraz import mochila_voraz
 from mochila_dinamica import mochila_dinamica
 
-ANIMATION_SPEED = 700  # Delay en milisegundos para la animación visual
+ANIMATION_SPEED = 1500  # Delay en milisegundos para la animación visual (ahora más lento)
 DP_SPEED = 50  # Delay en milisegundos para la animación de programación dinámica
 
 class App(ctk.CTk):
@@ -62,13 +62,13 @@ class App(ctk.CTk):
         self.stats_frame_greedy = ctk.CTkFrame(self.tab_voraz, fg_color="#000000")
         self.stats_frame_greedy.grid(row=2, column=0, sticky="nsew", padx=10, pady=10)
 
-        self.total_value_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Valor Total: 0", font=("Arial", 24), anchor="center")
+        self.total_value_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Valor Total: 0", font=("Arial", 24, "bold"), anchor="center")
         self.total_value_label_greedy.grid(row=0, column=0, padx=10, pady=10)
 
-        self.total_weight_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Peso Total: 0", font=("Arial", 24), anchor="center")
+        self.total_weight_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Peso Total: 0", font=("Arial", 24, "bold"), anchor="center")
         self.total_weight_label_greedy.grid(row=0, column=1, padx=10, pady=10)
 
-        self.execution_time_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Tiempo: 0.00 s", font=("Arial", 24), anchor="center")
+        self.execution_time_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Tiempo: 0.00 s", font=("Arial", 24, "bold"), anchor="center")
         self.execution_time_label_greedy.grid(row=0, column=2, padx=10, pady=10)
 
         # Result Text
@@ -88,13 +88,13 @@ class App(ctk.CTk):
         self.stats_frame_dynamic = ctk.CTkFrame(self.tab_dinamica, fg_color="#000000")
         self.stats_frame_dynamic.grid(row=2, column=0, sticky="nsew", padx=10, pady=10)
 
-        self.total_value_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Valor Total: 0", font=("Arial", 24), anchor="center")
+        self.total_value_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Valor Total: 0", font=("Arial", 24, "bold"), anchor="center")
         self.total_value_label_dynamic.grid(row=0, column=0, padx=10, pady=10)
 
-        self.total_weight_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Peso Total: 0", font=("Arial", 24), anchor="center")
+        self.total_weight_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Peso Total: 0", font=("Arial", 24, "bold"), anchor="center")
         self.total_weight_label_dynamic.grid(row=0, column=1, padx=10, pady=10)
 
-        self.execution_time_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Tiempo: 0.00 s", font=("Arial", 24), anchor="center")
+        self.execution_time_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Tiempo: 0.00 s", font=("Arial", 24, "bold"), anchor="center")
         self.execution_time_label_dynamic.grid(row=0, column=2, padx=10, pady=10)
 
         # Result Text
@@ -111,6 +111,11 @@ class App(ctk.CTk):
         self.canvas_compare.get_tk_widget().grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
     def run_greedy(self):
+        # Reset statistical variables and labels
+        self.total_value_label_greedy.configure(text="Valor Total: 0")
+        self.total_weight_label_greedy.configure(text="Peso Total: 0")
+        self.execution_time_label_greedy.configure(text="Tiempo: 0.00 s")
+
         self.cancelar_animaciones()
         self.clear_dashboard("Voraz")
         capacidad, objetos = self.read_input()
@@ -129,6 +134,11 @@ class App(ctk.CTk):
         self.draw_greedy_step_by_step(steps, objetos)
 
     def run_dynamic(self):
+        # Reset statistical variables and labels
+        self.total_value_label_dynamic.configure(text="Valor Total: 0")
+        self.total_weight_label_dynamic.configure(text="Peso Total: 0")
+        self.execution_time_label_dynamic.configure(text="Tiempo: 0.00 s")
+
         self.cancelar_animaciones()
         self.clear_dashboard("Dinámica")
         capacidad, objetos = self.read_input()
