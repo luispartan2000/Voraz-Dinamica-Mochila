@@ -71,6 +71,10 @@ class App(ctk.CTk):
         self.execution_time_label_greedy = ctk.CTkLabel(self.stats_frame_greedy, text="Tiempo: 0.00 s", font=("Arial", 24), anchor="center")
         self.execution_time_label_greedy.grid(row=0, column=2, padx=10, pady=10)
 
+        # Result Text
+        self.result_text_greedy = ctk.CTkTextbox(self.tab_voraz, width=400, height=100, fg_color="#000000", corner_radius=10)
+        self.result_text_greedy.grid(row=3, column=0, sticky="nsew", padx=10, pady=10)
+
     def init_tab_dinamica(self):
         # Top (Controls): Centered button "Ejecutar"
         self.button_run_dynamic = ctk.CTkButton(self.tab_dinamica, text="Ejecutar", command=self.run_dynamic)
@@ -92,6 +96,10 @@ class App(ctk.CTk):
 
         self.execution_time_label_dynamic = ctk.CTkLabel(self.stats_frame_dynamic, text="Tiempo: 0.00 s", font=("Arial", 24), anchor="center")
         self.execution_time_label_dynamic.grid(row=0, column=2, padx=10, pady=10)
+
+        # Result Text
+        self.result_text_dynamic = ctk.CTkTextbox(self.tab_dinamica, width=400, height=100, fg_color="#000000", corner_radius=10)
+        self.result_text_dynamic.grid(row=3, column=0, sticky="nsew", padx=10, pady=10)
 
     def init_tab_comparacion(self):
         # Add a CTkButton labeled "Generar Gráficas"
