@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from tkinter import messagebox, ttk
+from tkinter import messagebox, ttk, TclError
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
