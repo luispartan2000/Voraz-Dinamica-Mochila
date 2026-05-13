@@ -110,6 +110,10 @@ class App(ctk.CTk):
         self.canvas_compare = FigureCanvasTkAgg(None, master=self.tab_comparacion)
         self.canvas_compare.get_tk_widget().grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
+        # Configure grid weights to allow resizing
+        self.tab_comparacion.grid_rowconfigure(1, weight=1)
+        self.tab_comparacion.grid_columnconfigure(0, weight=1)
+
     def run_greedy(self):
         # Reset statistical variables and labels
         self.total_value_label_greedy.configure(text="Valor Total: 0")
@@ -307,8 +311,8 @@ class App(ctk.CTk):
             row["ratio"].configure(fg_color=color)
 
             if step["fit"]:
-                valor_total += objetos[step["obj"]][0]
-                peso_total += objetos[step["obj"]][1]
+                valor_total += self.objetos[step["obj"]][0]
+                peso_total += self.objetos[step["obj"]][1]
                 self.total_value_label_greedy.configure(text=f"Valor Total: {valor_total:.2f}")
                 self.total_weight_label_greedy.configure(text=f"Peso Total: {peso_total:.2f}")
 
@@ -364,6 +368,8 @@ class App(ctk.CTk):
                 if pesos[i] > 0 and valores[i] >= 0:
                     objetos.append((valores[i], pesos[i]))
             
+            self.objetos = objetos  # Store the objetos list as an instance variable
+
             return capacidad, objetos
         except Exception as e:
             messagebox.showerror("Error", f"Error al leer el archivo input.txt: {e}")
